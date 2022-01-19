@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class TransactionsService {
 
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 0049b619c80797510a142b6c2c73354e41ad0679
 	@Autowired
 	private TransactionsRepository tr;
 	public TransactionsEntity transaction;
@@ -31,5 +34,9 @@ public class TransactionsService {
 		return null;
 	}
 	
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0049b619c80797510a142b6c2c73354e41ad0679
 
 }

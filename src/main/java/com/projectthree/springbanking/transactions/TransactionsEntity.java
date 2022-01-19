@@ -26,9 +26,20 @@ public class TransactionsEntity {
 	@Column(name="transaction_date")
 	private String transactionDate;
 	@Column(name="transaction_type")
+<<<<<<< HEAD
 	private String transactionType;  // DEPOSIT or WITHDRAW
 	@Column(name="transaction_note")
 	private String transactionNote; // paycheck from Revature OR electricity bill OR transfer from acct 1 to acct 2
+=======
+	private String transactionType;
+	@Column(name="transaction_note")
+	private String transactionNote;
+	
+
+	
+	
+	
+>>>>>>> 0049b619c80797510a142b6c2c73354e41ad0679
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "user_id")
