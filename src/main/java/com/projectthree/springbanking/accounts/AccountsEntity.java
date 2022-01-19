@@ -1,14 +1,13 @@
 package com.projectthree.springbanking.accounts;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import com.projectthree.springbanking.transactions.TransactionsEntity;
+import com.projectthree.springbanking.users.UsersEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -25,4 +24,13 @@ public class AccountsEntity {
 	@Column(name="account_balance")
 	private double accountBalance;
 
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="user_id")
+	private UsersEntity usersEntity;
+	//colleen made a change
+
+	// owner side of relationship
+	// accounts can have multiple relationships
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="accountsEntity", cascade = CascadeType.ALL)
+	private Set<TransactionsEntity> transactionEntity;
 }

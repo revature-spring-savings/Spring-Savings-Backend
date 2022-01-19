@@ -1,5 +1,7 @@
 package com.projectthree.springbanking.transactions;
 
+import com.projectthree.springbanking.accounts.AccountsEntity;
+import com.projectthree.springbanking.users.UsersEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,27 +17,25 @@ public class TransactionsEntity {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="transaction_id")
 	private int transactionID;
-	@Column(name="user_id")
-	private int userID;
-	@Column(name="account_id")
-	private int accountID;
+//	@Column(name="user_id")
+//	private int userID;
+//	@Column(name="account_id")
+//	private int accountID;
 	@Column
 	private double amount;
 	@Column(name="transaction_date")
 	private String transactionDate;
 	@Column(name="transaction_type")
-	private String transactionType;
+	private String transactionType;  // DEPOSIT or WITHDRAW
 	@Column(name="transaction_note")
-	private String transactionNote;
-	//deposit, withdrawal, transfer
-														//source_account and dest_account are nullable
-	
-	//all income transactions are transactions where dest_account == current account
-	//all expense transactions are transactions where source_account == current account
-	
-	//if source_account has value but dest_account is null, that means it is a withdrawal
-	
-	
-	
+	private String transactionNote; // paycheck from Revature OR electricity bill OR transfer from acct 1 to acct 2
 
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	private UsersEntity usersEntity;
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="account_id")
+	private AccountsEntity accountsEntity;
+	// a transfer creates two Transactions: one deposit and one withdrawal
 }
