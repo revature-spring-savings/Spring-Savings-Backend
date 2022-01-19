@@ -26,6 +26,15 @@ public class TransactionsEntity {
 	@Column(name="dest_account")
 	private int destAccount;
 	
+	//@Column(name="transaction_type")
+	private String transactionType; //deposit, withdrawal, transfer
+														//source_account and dest_account are nullable
+	
+	//all income transactions are transactions where dest_account == current account
+	//all expense transactions are transactions where source_account == current account
+	
+	//if source_account has value but dest_account is null, that means it is a withdrawal
+	
 	
 	
 
