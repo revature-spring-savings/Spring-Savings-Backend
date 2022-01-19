@@ -24,11 +24,11 @@ public class TransactionsEntity {
 	@Column(name="transaction_date")
 	private String transactionDate;
 	@Column(name="transaction_type")
-	private String transactionType;  // DEPOSIT or WITHDRAW
+	private String transactionType;
 	@Column(name="transaction_note")
-	private String transactionNote; // paycheck from Revature OR electricity bill OR transfer from acct 1 to acct 2 
+	private String transactionNote;
 	
-	// a transfer creates two Transactions: one deposit and one withdrawal
+
 	
 	
 	

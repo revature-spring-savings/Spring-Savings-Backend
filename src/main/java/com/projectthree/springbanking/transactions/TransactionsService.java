@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class TransactionsService {
 
-	
 	@Autowired
 	private TransactionsRepository tr;
 	public TransactionsEntity transaction;
@@ -31,5 +30,6 @@ public class TransactionsService {
 		return null;
 	}
 	
+
 
 }

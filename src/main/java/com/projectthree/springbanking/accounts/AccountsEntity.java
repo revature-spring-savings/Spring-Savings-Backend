@@ -19,7 +19,7 @@ public class AccountsEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="account_id")
-	private int accountID;
+	private Integer accountID;
 	@Column(name="account_type")
 	private String accountType;
 	@Column(name="account_balance")
