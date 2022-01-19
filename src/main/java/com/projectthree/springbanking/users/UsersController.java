@@ -36,7 +36,6 @@ public class UsersController {
 	}
 	
 	
-	
 	@PostMapping("/login")
     public UsersEntity userLogin(@RequestBody UsersEntity user) {
 		logger.info(user.getUsername());

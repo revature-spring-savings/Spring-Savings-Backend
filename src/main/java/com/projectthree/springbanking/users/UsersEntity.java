@@ -19,6 +19,7 @@ import lombok.Setter;
 public class UsersEntity {
 	
 	@Id
+	@Column(name="user_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userId;
 	

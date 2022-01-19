@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("*")
 public class AccountsController {
 	
-	@Autowired
-	private AccountsService as;
-	
-	@Autowired
-	private AccountsRepository ar;
+//	@Autowired
+//	private AccountsService as;
+//	
+//	@Autowired
+//	private AccountsRepository ar;
 
 }

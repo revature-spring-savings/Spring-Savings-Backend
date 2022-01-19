@@ -16,7 +16,6 @@ public class UsersService {
 	}
 	
 
-	
 	public UsersEntity userLogin(String username, String pass) {
         UsersEntity loggedInUser = ur.findByUsername(username);
        
@@ -46,7 +45,7 @@ public class UsersService {
 			return user;
 	    }
 
-
+	    //lets the user update their information
 		public String updateUser(UsersEntity user) {
 			UsersEntity u = ur.findByUsername(user.getUsername());
 			u.setFirstName(user.getFirstName());
