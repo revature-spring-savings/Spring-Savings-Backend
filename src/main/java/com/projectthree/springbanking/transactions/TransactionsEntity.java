@@ -17,23 +17,18 @@ public class TransactionsEntity {
 	private int transactionID;
 	@Column(name="user_id")
 	private int userID;
+	@Column(name="account_id")
+	private int accountID;
 	@Column
 	private double amount;
 	@Column(name="transaction_date")
 	private String transactionDate;
-	@Column(name="source_account")
-	private int sourceAccount;
-	@Column(name="dest_account")
-	private int destAccount;
+	@Column(name="transaction_type")
+	private String transactionType;  // DEPOSIT or WITHDRAW
+	@Column(name="transaction_note")
+	private String transactionNote; // paycheck from Revature OR electricity bill OR transfer from acct 1 to acct 2 
 	
-	//@Column(name="transaction_type")
-	private String transactionType; //deposit, withdrawal, transfer
-														//source_account and dest_account are nullable
-	
-	//all income transactions are transactions where dest_account == current account
-	//all expense transactions are transactions where source_account == current account
-	
-	//if source_account has value but dest_account is null, that means it is a withdrawal
+	// a transfer creates two Transactions: one deposit and one withdrawal
 	
 	
 	
