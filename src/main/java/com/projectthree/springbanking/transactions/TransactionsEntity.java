@@ -17,14 +17,18 @@ public class TransactionsEntity {
 	private int transactionID;
 	@Column(name="user_id")
 	private int userID;
+	@Column(name="account_id")
+	private int accountID;
 	@Column
 	private double amount;
 	@Column(name="transaction_date")
 	private String transactionDate;
-	@Column(name="source_account")
-	private int sourceAccount;
-	@Column(name="dest_account")
-	private int destAccount;
+	@Column(name="transaction_type")
+	private String transactionType;
+	@Column(name="transaction_note")
+	private String transactionNote;
+	
+
 	
 	
 	
