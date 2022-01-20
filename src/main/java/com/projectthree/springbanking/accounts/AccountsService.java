@@ -6,6 +6,9 @@ import com.projectthree.springbanking.transactions.TransactionsEntity;
 import com.projectthree.springbanking.users.UsersEntity;
 import com.projectthree.springbanking.users.UsersRepository;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,23 +60,27 @@ public class AccountsService {
     public AccountsEntity createAccount(AccountsEntity accountsEntity, Integer userID) {
     	// retrieve existing user from database
     	UsersEntity usersEntity = usersRepository.findById(userID).get();
+    	System.out.println(usersEntity);
     	// create new account
     	AccountsEntity accountEntity = new AccountsEntity();
-		accountEntity.setAccountBalance(accountsEntity.getAccountBalance());
-		accountEntity.setAccountType(accountsEntity.getAccountType());
-		usersEntity.setAccountsEntity(accountEntity);
-		
-		
-//		if(account_type.equalsIgnoreCase("checking")) {
-//			System.out.println("works");
-////			accountEntity = new Checking(initialDeposit);
-//		} 
-//		else if(account_type.equalsIgnoreCase("savings")){
-//			System.out.println("works");
-////			accountEntity = new Savings(initialDeposit);
-//
-//		}  
-		
+    	 // set
+        Set<AccountsEntity> accountSet = new HashSet<AccountsEntity>();
+        // set account balance
+        accountEntity.setAccountBalance(accountsEntity.getAccountBalance());
+        // get account type
+        accountEntity.setAccountType(accountsEntity.getAccountType());
+        // this will set the foreign key relationship
+        accountEntity.setUsersEntity(usersEntity);
+        accountsRepository.save(accountEntity);
+        accountSet.add(accountEntity);
+
+
+        System.out.println(accountEntity);
+        usersEntity.setAccountsEntity(accountSet);
+
+        usersRepository.save(usersEntity);
+        return usersEntity;
+
 		// set values for the new account
     	
     	// then add the new account to user
@@ -82,3 +89,16 @@ public class AccountsService {
     	
     }
 }
+
+//accountEntity.setAccountBalance(accountsEntity.getAccountBalance());
+//accountEntity.setAccountType(accountsEntity.getAccountType());
+//usersEntity.setAccountsEntity(accountEntity);
+//if(account_type.equalsIgnoreCase("checking")) {
+//	System.out.println("works");
+////	accountEntity = new Checking(initialDeposit);
+//} 
+//else if(account_type.equalsIgnoreCase("savings")){
+//	System.out.println("works");
+////	accountEntity = new Savings(initialDeposit);
+//
+//} 

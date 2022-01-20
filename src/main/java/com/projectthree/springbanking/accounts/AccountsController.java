@@ -32,4 +32,10 @@ public class AccountsController {
 
 		as.withdraw(transactionEntity, acctID);
 	}
+	
+	@PostMapping("createAccount/{id}")
+	public void testCreateAccount(@PathVariable(value="id") Integer userID, @RequestBody AccountsEntity accountsEntity) {
+		System.out.println("TESTS" + accountsEntity);
+		as.createAccount(accountsEntity, userID);
+	}
 }
