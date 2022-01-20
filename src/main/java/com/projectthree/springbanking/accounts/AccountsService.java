@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.projectthree.springbanking.transactions.TransactionsEntity;
 import com.projectthree.springbanking.users.UsersEntity;
 import com.projectthree.springbanking.users.UsersRepository;
+import com.projectthree.springbanking.accounts.AccountsRepository;
 
 @Service
 public class AccountsService {
@@ -23,8 +24,9 @@ public class AccountsService {
 	    private UsersRepository usersRepository;
 
 	@Autowired
-	public AccountsService(AccountsRepository accountsRepository) {
+	public AccountsService(AccountsRepository accountsRepository, UsersRepository usersRepository) {
 		this.accountsRepository = accountsRepository;
+		this.usersRepository = usersRepository;
 	}
 	
 	public List<AccountsEntity> allAccounts() {
@@ -37,10 +39,10 @@ public class AccountsService {
 		
 	}
 	
-//	public Optional <AccountsEntity> accountByID(Integer accountID) {
-//		return accountsRepository.findById(accountID);
+	public Optional <AccountsEntity> accountByID(Integer accountID) {
+		return accountsRepository.findById(accountID);
 		
-//	}
+	}
 	
 	 public AccountsEntity deposit(TransactionsEntity transactionEntity, Integer accountID) {
 	        // deposit amount
