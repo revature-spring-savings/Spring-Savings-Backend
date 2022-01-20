@@ -1,5 +1,6 @@
 package com.projectthree.springbanking.users;
 
+
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+
 
 @Entity
 @Data

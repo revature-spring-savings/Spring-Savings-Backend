@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("*")
 public class TransactionsController {
 	
-//	@Autowired
-//	private TransactionsService ts;
-//	
-//	@Autowired
-//	private TransactionsRepository tr;
+
+	@Autowired
+	private TransactionsService ts;
+	
+	@Autowired
+	private TransactionsRepository tr;
+
+
 	
 	
 
