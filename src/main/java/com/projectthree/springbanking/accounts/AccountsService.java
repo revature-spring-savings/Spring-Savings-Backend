@@ -8,15 +8,19 @@ import com.projectthree.springbanking.users.UsersRepository;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.projectthree.springbanking.users.UsersEntity;
+import com.projectthree.springbanking.users.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class AccountsService {
 
     @Autowired
     private AccountsRepository accountsRepository;
-
 
     @Autowired
     private UsersRepository usersRepository;
@@ -63,9 +67,13 @@ public class AccountsService {
         System.out.println(usersEntity);
         // create new account
         AccountsEntity accountEntity = new AccountsEntity();
+        // set
         Set<AccountsEntity> accountSet = new HashSet<AccountsEntity>();
+        // set account balance
         accountEntity.setAccountBalance(accountsEntity.getAccountBalance());
+        // get account type
         accountEntity.setAccountType(accountsEntity.getAccountType());
+        // this will set the foreign key relationship
         accountEntity.setUsersEntity(usersEntity);
         accountsRepository.save(accountEntity);
         accountSet.add(accountEntity);
@@ -77,4 +85,4 @@ public class AccountsService {
         usersRepository.save(usersEntity);
         return usersEntity;
         }
-}
+    }
