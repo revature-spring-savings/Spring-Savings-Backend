@@ -41,11 +41,9 @@ public class UsersEntity {
     // multiple accounts one users
     @ToString.Exclude
     @OneToMany(fetch = FetchType.LAZY, mappedBy="usersEntity", cascade = CascadeType.ALL)
-    @JsonManagedReference
     private Set<AccountsEntity> accountsEntity;
 
     @ToString.Exclude
-    @OneToMany(fetch = FetchType.LAZY, mappedBy="userEntity", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="usersEntity", cascade = CascadeType.ALL)
     private Set<TransactionsEntity> transactionsEntity;
 }

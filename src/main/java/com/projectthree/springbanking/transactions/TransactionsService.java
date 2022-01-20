@@ -2,6 +2,7 @@ package com.projectthree.springbanking.transactions;
 
 import java.util.List;
 
+import com.projectthree.springbanking.accounts.AccountsEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,15 +15,15 @@ public class TransactionsService {
 
 	//Jeremy
 	public List<TransactionsEntity> getAllWithdrawalTransactions() {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 	
 	//Jeremy
-	public List<TransactionsEntity> getAllDepositTransactions() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	public List<TransactionsEntity> getAllDepositTransactions(Integer accountID) {
+//		AccountsEntity accountEntity = accountsRepository.findById(accountID).get();
+//		return null;
+//	}
 
 	public TransactionsEntity newTransaction(TransactionsEntity t) {
 		// create new transaction here

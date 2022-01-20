@@ -73,7 +73,6 @@ public class AccountsService {
         accountsRepository.save(accountEntity);
         accountSet.add(accountEntity);
 
-
         System.out.println(accountEntity);
         usersEntity.setAccountsEntity(accountSet);
 
