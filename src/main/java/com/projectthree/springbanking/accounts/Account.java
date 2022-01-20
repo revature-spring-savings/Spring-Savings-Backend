@@ -7,7 +7,7 @@ import javax.persistence.Id;
 public class Account { 
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue
 	protected double balance = 0;
 	protected double interest = 0.02;
 	protected int accountNumber;

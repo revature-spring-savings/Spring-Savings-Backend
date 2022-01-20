@@ -1,11 +1,21 @@
 package com.projectthree.springbanking.accounts;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.projectthree.springbanking.transactions.TransactionsEntity;
+import com.projectthree.springbanking.users.UsersEntity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,4 +36,13 @@ public class AccountsEntity {
 	private double accountBalance;
 
 	//colleen made a change
+	@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="user_id")
+    private UsersEntity usersEntity;
+
+
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="accountsEntity", cascade = CascadeType.ALL)
+    private Set<TransactionsEntity> transactionEntity;
 }
