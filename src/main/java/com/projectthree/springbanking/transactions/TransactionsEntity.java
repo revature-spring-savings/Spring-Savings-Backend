@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Data
 @NoArgsConstructor
 @Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name="transactions")
 public class TransactionsEntity {
 	
@@ -22,10 +22,6 @@ public class TransactionsEntity {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="transaction_id")
 	private int transactionID;
-//	@Column(name="user_id")
-//	private int userID;
-//	@Column(name="account_id")
-//	private int accountID;
 	@Column
 	private double amount;
 	@Column(name="transaction_date")
