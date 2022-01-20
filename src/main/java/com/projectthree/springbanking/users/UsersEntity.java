@@ -1,13 +1,16 @@
 package com.projectthree.springbanking.users;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.projectthree.springbanking.accounts.AccountsEntity;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(exclude="usersEntity")
 @Entity
 @Table(name="users")
 public class UsersEntity {
@@ -35,6 +38,8 @@ public class UsersEntity {
 
     // defines owning side of relationship
     // multiple accounts one users
+    @ToString.Exclude
     @OneToMany(fetch = FetchType.LAZY, mappedBy="usersEntity", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<AccountsEntity> accountsEntity;
 }
