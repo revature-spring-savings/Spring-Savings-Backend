@@ -15,18 +15,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Data
 @NoArgsConstructor
 @Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name="transactions")
 public class TransactionsEntity {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="transaction_id")
-	private Integer transactionID;
-//	@Column(name="user_id")
-//	private int userID;
-//	@Column(name="account_id")
-//	private int accountID;
+	private int transactionID;
 	@Column
 	private double amount;
 	@Column(name="transaction_date")

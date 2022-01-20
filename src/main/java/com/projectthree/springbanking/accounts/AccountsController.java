@@ -2,6 +2,9 @@ package com.projectthree.springbanking.accounts;
 
 import com.projectthree.springbanking.transactions.TransactionsEntity;
 import com.projectthree.springbanking.transactions.TransactionsRepository;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +22,11 @@ public class AccountsController {
 	@Autowired
 	private TransactionsRepository tr;
 
+	
+	@GetMapping
+	public List<AccountsEntity> getAllAccounts() {
+		return ar.findAll();
+	}
 	// error handling
 	@PutMapping("/deposit/{id}")
 	public void depositBal(@PathVariable(value="id") Integer acctID, @RequestBody TransactionsEntity transactionEntity) {
