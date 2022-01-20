@@ -13,7 +13,5 @@ public class UsersController {
 	@Autowired
 	private UsersService us;
 	
-	@Autowired
-	private UsersRepository ur;
 
 }
