@@ -9,9 +9,13 @@ import com.projectthree.springbanking.users.UsersRepository;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.projectthree.springbanking.users.UsersEntity;
+import com.projectthree.springbanking.users.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class AccountsService {
@@ -19,6 +23,9 @@ public class AccountsService {
     @Autowired
     private AccountsRepository accountsRepository;
     
+    @Autowired
+    private UsersRepository usersRepository;
+
     @Autowired
     private UsersRepository usersRepository;
 
@@ -35,6 +42,7 @@ public class AccountsService {
         double newAcctBal = currBal + depositAmt;
         // set new balance;
         accountEntity.setAccountBalance(newAcctBal);
+        accountEntity.setTransactionEntity((Set<TransactionsEntity>) transactionEntity);
         //save new balance into db
         accountsRepository.save(accountEntity);
         return accountEntity;
@@ -56,14 +64,14 @@ public class AccountsService {
         accountsRepository.save(accountEntity);
         return accountEntity;
     }
-    
-    public AccountsEntity createAccount(AccountsEntity accountsEntity, Integer userID) {
-    	// retrieve existing user from database
-    	UsersEntity usersEntity = usersRepository.findById(userID).get();
-    	System.out.println(usersEntity);
-    	// create new account
-    	AccountsEntity accountEntity = new AccountsEntity();
-    	 // set
+
+    public UsersEntity createAccount(AccountsEntity accountsEntity, Integer userID) {
+        // retrieve existing user from database
+        UsersEntity usersEntity = usersRepository.findById(userID).get();
+        System.out.println(usersEntity);
+        // create new account
+        AccountsEntity accountEntity = new AccountsEntity();
+        // set
         Set<AccountsEntity> accountSet = new HashSet<AccountsEntity>();
         // set account balance
         accountEntity.setAccountBalance(accountsEntity.getAccountBalance());
