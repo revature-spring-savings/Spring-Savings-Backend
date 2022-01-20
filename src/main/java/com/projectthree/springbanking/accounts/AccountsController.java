@@ -32,7 +32,7 @@ public class AccountsController {
 	
 	@GetMapping("/{userID}/all-accounts")
 	public List <AccountsEntity> userAccounts(@PathVariable Integer userID){
-				return ar.findAllByID(userID);
+				return ar.findByuserID(userID);
 		
 //		userService.findById(userID);
 		
