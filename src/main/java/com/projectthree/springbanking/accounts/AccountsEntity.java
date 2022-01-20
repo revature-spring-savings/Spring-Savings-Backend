@@ -35,7 +35,7 @@ public class AccountsEntity {
 	@Column(name="account_balance")
 	private double accountBalance;
 
-	//colleen made a change
+	//
 	@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="user_id")
     private UsersEntity usersEntity;
