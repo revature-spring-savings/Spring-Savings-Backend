@@ -24,17 +24,4 @@ public class TransactionsService {
 		return null;
 	}
 
-	public TransactionsEntity newTransaction(TransactionsEntity t) {
-		// create new transaction here
-		return null;
-	}
-
-	public TransactionsEntity newTransfer(TransactionsEntity t1, TransactionsEntity t2) {
-		//create new transfer here
-		return null;
-	}
-
-
-	
-
 }

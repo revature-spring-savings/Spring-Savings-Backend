@@ -17,46 +17,55 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/transactions")
 @CrossOrigin("*")
 public class TransactionsController {
-	
+
 	@Autowired
 	private TransactionsService ts;
-	
+
 	@Autowired
 	private TransactionsRepository tr;
-	
+
 	@GetMapping
 	public List<TransactionsEntity> getAllTransactions() {
 		return tr.findAll();
 	}
-	
+
 	@GetMapping("/id/{id}")
 	public TransactionsEntity getOneTransaction(@PathVariable Integer id) {
 		return tr.getById(id);
 	}
-	
+
 	@PostMapping
-	public String createNewTransaction(@RequestBody List<TransactionsEntity> l){	
-		System.out.println(l);
-		System.out.println(l.size());
-		if(l.size() == 1) {
+	public List<TransactionsEntity> createNewTransaction(@RequestBody List<TransactionsEntity> l) {
+		if (l.size() == 1) {
 			tr.save(l.get(0));
-			return "one";
-		}else if(l.size()==2){
+			return l;
+		} else if (l.size() == 2) {
 			tr.save(l.get(0));
 			tr.save(l.get(1));
-			return "two";			
-		}else {
-			return "none";
-		}		
+			return l;
+		} else {
+			return null;
+		}
 	}
-	
+
 	@DeleteMapping("/id/{id}")
 	public String deleteOneTransaction(@PathVariable Integer id) {
 		tr.deleteById(id);
 		return "done";
 	}
-	
-	
-	
+
+//	@PostMapping
+//	public String createNewTransaction(@RequestBody List<TransactionsEntity> l){	
+//		if(l.size() == 1) {
+//			tr.save(l.get(0));
+//			return "one";
+//		}else if(l.size()==2){
+//			tr.save(l.get(0));
+//			tr.save(l.get(1));
+//			return "two";			
+//		}else {
+//			return "none";
+//		}		
+//	}
 
 }
