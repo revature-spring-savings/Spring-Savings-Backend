@@ -1,6 +1,6 @@
 package com.projectthree.springbanking.users;
 
-<<<<<<< HEAD
+import javax.persistence.Entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +22,7 @@ import lombok.Setter;
 	@AllArgsConstructor 
 	@Table  (name = "users")
 	public class UsersEntity {
-@Id
+		@Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private int userId;
 
@@ -42,11 +42,5 @@ import lombok.Setter;
 	    private String dob;
 	    @Column(name = "user_role")
 	    private String userRole;
-=======
-import javax.persistence.Entity;
-
-
-public class UsersEntity {
->>>>>>> 650a936efc93c268c790b4cdd05f2fab5c7ec27f
 
 }
