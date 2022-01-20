@@ -3,6 +3,7 @@ package com.projectthree.springbanking.accounts;
 
 import com.projectthree.springbanking.transactions.TransactionsEntity;
 
+import com.projectthree.springbanking.transactions.TransactionsRepository;
 import com.projectthree.springbanking.users.UsersEntity;
 import com.projectthree.springbanking.users.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,20 +21,39 @@ public class AccountsService {
     @Autowired
     private UsersRepository usersRepository;
 
+    @Autowired
+    private TransactionsRepository transactionsRepository;
+
     // deposit money into account
     // should take into account what type of account it is
     public AccountsEntity deposit(TransactionsEntity transactionEntity, Integer accountID) {
         // deposit amount
         double depositAmt =  transactionEntity.getAmount();
+        Set<TransactionsEntity> transactionSet = new HashSet<TransactionsEntity>();
         // retrieve account from database
         AccountsEntity accountEntity = accountsRepository.findById(accountID).get();
+        // retrieve user id from accounts
+        UsersEntity usersEntity = usersRepository.findById(accountEntity.getUserID()).get();
+        System.out.println(usersEntity);
+
+        // new transaction
+        TransactionsEntity newTransaction = new TransactionsEntity();
+        newTransaction.setTransactionDate(transactionEntity.getTransactionDate());
+        newTransaction.setTransactionNote(transactionEntity.getTransactionNote());
+        newTransaction.setTransactionType(transactionEntity.getTransactionType());
+        newTransaction.setAmount(transactionEntity.getAmount());
+        newTransaction.setAccountsEntity(accountEntity);
+        newTransaction.setUsersEntity(usersEntity);
+        // save new transaction to transaction table
+        transactionsRepository.save(newTransaction);
+        transactionSet.add(newTransaction);
         // current account balance;
         double currBal = accountEntity.getAccountBalance();
         // new account balance;
         double newAcctBal = currBal + depositAmt;
         // set new balance;
         accountEntity.setAccountBalance(newAcctBal);
-        accountEntity.setTransactionEntity((Set<TransactionsEntity>) transactionEntity);
+        accountEntity.setTransactionEntity(transactionSet);
         //save new balance into db
         accountsRepository.save(accountEntity);
         return accountEntity;
