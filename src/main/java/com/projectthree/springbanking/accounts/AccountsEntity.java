@@ -17,6 +17,9 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.projectthree.springbanking.transactions.TransactionsEntity;
 import com.projectthree.springbanking.users.UsersEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +28,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import javax.persistence.*;
+import lombok.*;
 
 @Data
 @Getter

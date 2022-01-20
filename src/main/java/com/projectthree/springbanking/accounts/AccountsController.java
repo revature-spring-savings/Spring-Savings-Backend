@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.projectthree.springbanking.transactions.TransactionsEntity;
 import com.projectthree.springbanking.transactions.TransactionsRepository;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,17 +49,26 @@ public class AccountsController {
 	@Autowired
 	private TransactionsRepository tr;
 
+	
+	@GetMapping
+	public List<AccountsEntity> getAllAccounts() {
+		return ar.findAll();
+	}
 	// error handling
 	@PutMapping("/deposit/{id}")
 	public void depositBal(@PathVariable(value="id") Integer acctID, @RequestBody TransactionsEntity transactionEntity) {
-
 		as.deposit(transactionEntity, acctID);
 	}
 
 	// just needs error handling
 	@PutMapping("/withdraw/{id}")
 	public void withdrawBal(@PathVariable(value="id") Integer acctID, @RequestBody TransactionsEntity transactionEntity) {
-
 		as.withdraw(transactionEntity, acctID);
+	}
+
+	@PostMapping("createAccount/{id}")
+	public void testCreateAccount(@PathVariable(value="id") Integer userID, @RequestBody AccountsEntity accountsEntity) {
+		System.out.println("TESTS" + accountsEntity);
+		as.createAccount(accountsEntity, userID);
 	}
 }
