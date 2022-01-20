@@ -62,9 +62,13 @@ public class AccountsService {
         System.out.println(usersEntity);
         // create new account
         AccountsEntity accountEntity = new AccountsEntity();
+        // set
         Set<AccountsEntity> accountSet = new HashSet<AccountsEntity>();
+        // set account balance
         accountEntity.setAccountBalance(accountsEntity.getAccountBalance());
+        // get account type
         accountEntity.setAccountType(accountsEntity.getAccountType());
+        // this will set the foreign key relationship
         accountEntity.setUsersEntity(usersEntity);
         accountsRepository.save(accountEntity);
         accountSet.add(accountEntity);
