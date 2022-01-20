@@ -1,8 +1,9 @@
 package com.projectthree.springbanking.transactions;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class TransactionsRepository {
+public interface TransactionsRepository extends JpaRepository<TransactionsEntity, Integer>{
 
 }
