@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/transactions/")
+@RequestMapping("/transactions")
 @CrossOrigin("*")
 public class TransactionsController {
 	
@@ -28,42 +29,32 @@ public class TransactionsController {
 		return tr.findAll();
 	}
 	
-	@GetMapping("id/{id}")
+	@GetMapping("/id/{id}")
 	public TransactionsEntity getOneTransaction(@PathVariable Integer id) {
 		return tr.getById(id);
 	}
 	
-//	@PostMapping
-//	public TransactionsEntity createNewTransaction(@RequestBody TransactionsEntity t){	
-//		return ts.newTransaction(t);	
-//	}
-	
 	@PostMapping
-	public TransactionsEntity createNewTransaction(@RequestBody List<TransactionsEntity> l){	
+	public String createNewTransaction(@RequestBody List<TransactionsEntity> l){	
+		System.out.println(l);
+		System.out.println(l.size());
 		if(l.size() == 1) {
-			return ts.newTransaction(l.get(0));	
+			tr.save(l.get(0));
+			return "one";
 		}else if(l.size()==2){
-			return ts.newTransfer(l.get(0), l.get(1));			
+			tr.save(l.get(0));
+			tr.save(l.get(1));
+			return "two";			
 		}else {
-			return null;
-		}
-		
+			return "none";
+		}		
 	}
 	
-//	@GetMapping("withdraw")
-//	public List<TransactionsEntity> getAllWithdrawalTransactions() {
-//		return ts.getAllWithdrawalTransactions();
-//	}
-//	
-//	@GetMapping("deposit")
-//	public List<TransactionsEntity> getAllDepositTransactions() {
-//		return ts.getAllTransactions();
-//	}
-	
-//	@PostMapping("transfer")
-//	public List<TransactionsEntity> getAllDepositTransactions() {
-//		return ts.getAllTransactions();
-//	}
+	@DeleteMapping("/id/{id}")
+	public String deleteOneTransaction(@PathVariable Integer id) {
+		tr.deleteById(id);
+		return "done";
+	}
 	
 	
 	
