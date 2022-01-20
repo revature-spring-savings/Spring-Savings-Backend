@@ -24,13 +24,16 @@ public class TransactionsService {
 		// get request to see all withdraw from one user
 		// get by account type
 
-        AccountsEntity accountEntity = accountsRepository.findById(accountID).get();
+//        AccountsEntity accountEntity = accountsRepository.findById(accountID).get();
 //        tr.findAllByAccountId();
 //		if(accountEntity.getAccountType().equals("withdraw")) {
 //			//come back here
 //		}
 		
         // Grouped by withdraw
+        
+//        List<TransactionsEntity> transactionsEntity = tr.findByAccountId(accountID);
+        
 		
         
 		return null;
