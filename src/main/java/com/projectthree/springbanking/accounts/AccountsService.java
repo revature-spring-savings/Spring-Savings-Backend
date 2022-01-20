@@ -31,7 +31,6 @@ public class AccountsService {
     }
 
     // withdraw money from account
-
     public AccountsEntity withdraw(TransactionsEntity transactionEntity, Integer accountID) {
         // withdraw amt
         double withdrawAmt = transactionEntity.getAmount();

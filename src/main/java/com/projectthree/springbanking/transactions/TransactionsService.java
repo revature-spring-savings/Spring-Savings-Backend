@@ -5,22 +5,44 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.projectthree.springbanking.accounts.AccountsEntity;
+import com.projectthree.springbanking.accounts.AccountsRepository;
+
 @Service
 public class TransactionsService {
 
 	@Autowired
 	private TransactionsRepository tr;
 	public TransactionsEntity t;
+	
+    @Autowired
+    private AccountsRepository accountsRepository;
 
 	//Jeremy
-	public List<TransactionsEntity> getAllWithdrawalTransactions() {
-		// TODO Auto-generated method stub
+	public List<TransactionsEntity> getAllWithdrawalTransactions(Integer accountID, 
+																 Integer transaction_id) {
+		// get request to see all withdraw from one user
+		// get by account type
+        AccountsEntity accountEntity = accountsRepository.findById(accountID).get();
+		if(accountEntity.getAccountType().equals("withdraw")) {
+			tr.getById(transaction_id);
+			//come back here
+		}
+		
+        // Grouped by withdraw
+		
+        
 		return null;
 	}
 	
 	//Jeremy
-	public List<TransactionsEntity> getAllDepositTransactions() {
-		// TODO Auto-generated method stub
+	public List<TransactionsEntity> getAllDepositTransactions(Integer accountID) {
+		// get request to see all deposts from one user
+		// Grouped by account type
+        AccountsEntity accountEntity = accountsRepository.findById(accountID).get();
+
+		// Grouped by deposit
+		
 		return null;
 	}
 
@@ -34,8 +56,9 @@ public class TransactionsService {
 		return null;
 	}
 
-
-	
-
+	public List<TransactionsEntity> getAllTransactions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

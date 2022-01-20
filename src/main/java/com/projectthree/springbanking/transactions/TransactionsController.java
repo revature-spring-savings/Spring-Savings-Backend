@@ -47,18 +47,18 @@ public class TransactionsController {
 		}else {
 			return null;
 		}
-		
 	}
 	
-//	@GetMapping("withdraw")
-//	public List<TransactionsEntity> getAllWithdrawalTransactions() {
-//		return ts.getAllWithdrawalTransactions();
-//	}
-//	
-//	@GetMapping("deposit")
-//	public List<TransactionsEntity> getAllDepositTransactions() {
-//		return ts.getAllTransactions();
-//	}
+	@GetMapping("withdraw")
+	public List<TransactionsEntity> getAllWithdrawalTransactions(@RequestBody Integer accountID, 
+																 @RequestBody Integer transaction_id) {
+		return ts.getAllWithdrawalTransactions(accountID, transaction_id);
+	}
+	
+	@GetMapping("deposit")
+	public List<TransactionsEntity> getAllDepositTransactions(@RequestBody Integer accountID) {
+		return ts.getAllDepositTransactions(accountID);
+	}
 	
 //	@PostMapping("transfer")
 //	public List<TransactionsEntity> getAllDepositTransactions() {
