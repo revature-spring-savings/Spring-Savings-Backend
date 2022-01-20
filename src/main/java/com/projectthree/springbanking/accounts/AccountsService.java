@@ -2,6 +2,11 @@ package com.projectthree.springbanking.accounts;
 
 
 import com.projectthree.springbanking.transactions.TransactionsEntity;
+import com.projectthree.springbanking.users.UsersEntity;
+import com.projectthree.springbanking.users.UsersRepository;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +16,10 @@ public class AccountsService {
 
     @Autowired
     private AccountsRepository accountsRepository;
+
+
+    @Autowired
+    private UsersRepository usersRepository;
 
     // deposit money into account
     // should take into account what type of account it is
@@ -25,12 +34,14 @@ public class AccountsService {
         double newAcctBal = currBal + depositAmt;
         // set new balance;
         accountEntity.setAccountBalance(newAcctBal);
+        accountEntity.setTransactionEntity((Set<TransactionsEntity>) transactionEntity);
         //save new balance into db
         accountsRepository.save(accountEntity);
         return accountEntity;
     }
 
     // withdraw money from account
+
     public AccountsEntity withdraw(TransactionsEntity transactionEntity, Integer accountID) {
         // withdraw amt
         double withdrawAmt = transactionEntity.getAmount();
@@ -45,4 +56,25 @@ public class AccountsService {
         accountsRepository.save(accountEntity);
         return accountEntity;
     }
+
+    public UsersEntity createAccount(AccountsEntity accountsEntity, Integer userID) {
+        // retrieve existing user from database
+        UsersEntity usersEntity = usersRepository.findById(userID).get();
+        System.out.println(usersEntity);
+        // create new account
+        AccountsEntity accountEntity = new AccountsEntity();
+        Set<AccountsEntity> accountSet = new HashSet<AccountsEntity>();
+        accountEntity.setAccountBalance(accountsEntity.getAccountBalance());
+        accountEntity.setAccountType(accountsEntity.getAccountType());
+        accountEntity.setUsersEntity(usersEntity);
+        accountsRepository.save(accountEntity);
+        accountSet.add(accountEntity);
+
+
+        System.out.println(accountEntity);
+        usersEntity.setAccountsEntity(accountSet);
+
+        usersRepository.save(usersEntity);
+        return usersEntity;
+        }
 }

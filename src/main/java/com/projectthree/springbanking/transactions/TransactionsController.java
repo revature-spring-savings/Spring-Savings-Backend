@@ -50,13 +50,12 @@ public class TransactionsController {
 		}
 	}
 	
-	@GetMapping("withdraw")
-	public List<TransactionsEntity> getAllWithdrawalTransactions(@RequestBody Integer accountID, 
-																 @RequestBody Integer transaction_id) {
-		return ts.getAllWithdrawalTransactions(accountID, transaction_id);
+	@GetMapping("/withdraw")
+	public List<TransactionsEntity> getAllWithdrawalTransactions(@RequestBody Integer accountID) {
+		return ts.getAllWithdrawalTransactions(accountID);
 	}
 	
-	@GetMapping("deposit")
+	@GetMapping("/deposit")
 	public List<TransactionsEntity> getAllDepositTransactions(@RequestBody Integer accountID) {
 		return ts.getAllDepositTransactions(accountID);
 	}

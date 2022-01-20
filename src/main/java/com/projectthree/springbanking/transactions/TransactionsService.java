@@ -2,6 +2,7 @@ package com.projectthree.springbanking.transactions;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,15 +20,15 @@ public class TransactionsService {
     private AccountsRepository accountsRepository;
 
 	//Jeremy
-	public List<TransactionsEntity> getAllWithdrawalTransactions(Integer accountID, 
-																 Integer transaction_id) {
+	public List<TransactionsEntity> getAllWithdrawalTransactions(Integer accountID) {
 		// get request to see all withdraw from one user
 		// get by account type
+
         AccountsEntity accountEntity = accountsRepository.findById(accountID).get();
-		if(accountEntity.getAccountType().equals("withdraw")) {
-			tr.getById(transaction_id);
-			//come back here
-		}
+//        tr.findAllByAccountId();
+//		if(accountEntity.getAccountType().equals("withdraw")) {
+//			//come back here
+//		}
 		
         // Grouped by withdraw
 		
