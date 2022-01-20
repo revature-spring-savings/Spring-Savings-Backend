@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @Entity
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name="transactions")
 public class TransactionsEntity {
 	
@@ -19,10 +20,6 @@ public class TransactionsEntity {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="transaction_id")
 	private int transactionID;
-//	@Column(name="user_id")
-//	private int userID;
-//	@Column(name="account_id")
-//	private int accountID;
 	@Column
 	private double amount;
 	@Column(name="transaction_date")
