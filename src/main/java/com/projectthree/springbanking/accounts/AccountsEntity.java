@@ -39,6 +39,7 @@ public class AccountsEntity {
 	// owner side of relationship
 	// accounts can have multiple relationships
 	@ToString.Exclude
+	@JsonManagedReference
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="accountsEntity", cascade = CascadeType.ALL)
 	private Set<TransactionsEntity> transactionEntity;
 }

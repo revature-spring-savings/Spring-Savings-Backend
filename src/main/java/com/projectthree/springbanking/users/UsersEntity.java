@@ -2,6 +2,7 @@ package com.projectthree.springbanking.users;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.projectthree.springbanking.accounts.AccountsEntity;
+import com.projectthree.springbanking.transactions.TransactionsEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -42,4 +43,9 @@ public class UsersEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy="usersEntity", cascade = CascadeType.ALL)
     @JsonManagedReference
     private Set<AccountsEntity> accountsEntity;
+
+    @ToString.Exclude
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="userEntity", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Set<TransactionsEntity> transactionsEntity;
 }
