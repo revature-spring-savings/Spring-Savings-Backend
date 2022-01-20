@@ -1,18 +1,26 @@
 package com.projectthree.springbanking.accounts;
 
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.projectthree.springbanking.transactions.TransactionsEntity;
+import com.projectthree.springbanking.users.UsersEntity;
+import com.projectthree.springbanking.users.UsersRepository;
 
 @Service
 public class AccountsService {
 	
+	@Autowired
 	private AccountsRepository accountsRepository;
+	
+	@Autowired
+	    private UsersRepository usersRepository;
 
 	@Autowired
 	public AccountsService(AccountsRepository accountsRepository) {
@@ -66,6 +74,27 @@ public class AccountsService {
 	        accountsRepository.save(accountEntity);
 	        return accountEntity;
 	    }
+	    
+	    public UsersEntity createAccount(AccountsEntity accountsEntity, Integer userID) {
+	        // retrieve existing user from database
+	        UsersEntity usersEntity = usersRepository.findById(userID).get();
+	        System.out.println(usersEntity);
+	        // create new account
+	        AccountsEntity accountEntity = new AccountsEntity();
+	        Set<AccountsEntity> accountSet = new HashSet<AccountsEntity>();
+	        accountEntity.setAccountBalance(accountsEntity.getAccountBalance());
+	        accountEntity.setAccountType(accountsEntity.getAccountType());
+	        accountEntity.setUsersEntity(usersEntity);
+	        accountsRepository.save(accountEntity);
+	        accountSet.add(accountEntity);
+
+
+	        System.out.println(accountEntity);
+	        usersEntity.setAccountsEntity(accountSet);
+
+	        usersRepository.save(usersEntity);
+	        return usersEntity;
+	        }
 	
 	
 
