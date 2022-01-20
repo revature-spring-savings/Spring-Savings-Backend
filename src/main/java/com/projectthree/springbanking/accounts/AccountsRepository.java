@@ -1,5 +1,9 @@
 package com.projectthree.springbanking.accounts;
 
-public class AccountsRepository {
+import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+@Repository
+public interface AccountsRepository extends JpaRepository<AccountsEntity, Integer> {
 
 }
