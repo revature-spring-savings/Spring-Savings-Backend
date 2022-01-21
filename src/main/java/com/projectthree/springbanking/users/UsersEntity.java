@@ -1,6 +1,5 @@
 package com.projectthree.springbanking.users;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.projectthree.springbanking.accounts.AccountsEntity;
 import com.projectthree.springbanking.transactions.TransactionsEntity;
 import lombok.*;
@@ -29,7 +28,7 @@ public class UsersEntity {
     @Column(name="username")
     private String username;
     @Column(name="pass")
-    private String password;
+    private String pass;
     @Column(name="phone_number")
     private String phoneNumber;
     @Column(name="dob")
