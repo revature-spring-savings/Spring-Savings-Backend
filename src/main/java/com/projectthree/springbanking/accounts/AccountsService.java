@@ -9,13 +9,10 @@ import com.projectthree.springbanking.users.UsersRepository;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.projectthree.springbanking.users.UsersEntity;
-import com.projectthree.springbanking.users.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
+
 
 @Service
 public class AccountsService {
@@ -26,8 +23,6 @@ public class AccountsService {
     @Autowired
     private UsersRepository usersRepository;
 
-    @Autowired
-    private UsersRepository usersRepository;
 
     // deposit money into account
     // should take into account what type of account it is
