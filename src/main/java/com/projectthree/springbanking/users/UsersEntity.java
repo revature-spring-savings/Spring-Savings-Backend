@@ -16,15 +16,9 @@ import java.util.Set;
 @Entity
 @Table(name="users")
 public class UsersEntity {
-<<<<<<< .merge_file_a14348
-	
-	@Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-=======
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
->>>>>>> .merge_file_a20220
     @Column(name="user_id")
     private Integer userID;
     @Column(name="first_name")
