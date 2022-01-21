@@ -27,6 +27,7 @@ public class TransactionsController {
 
 	@GetMapping
 	public List<TransactionsEntity> getAllTransactions() {
+	//	System.out.println(tr.findAll());
 		return tr.findAll();
 	}
 
@@ -50,8 +51,9 @@ public class TransactionsController {
 		}
 	}
 	
-	@GetMapping("/withdraw")
+	@PostMapping("/withdraw")
 	public List<TransactionsEntity> getAllWithdrawalTransactions(@RequestBody AccountsEntity a) {
+		System.out.println(a.getAccountID());
 		return ts.getAllTransactionsByAccountID(a.getAccountID());
 	}
 	
