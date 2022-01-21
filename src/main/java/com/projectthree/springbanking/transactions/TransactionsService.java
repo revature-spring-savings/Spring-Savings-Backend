@@ -42,9 +42,22 @@ public class TransactionsService {
 		return null;
 	}
 
+	// transfer between accounts
+	// should create two transactions // withdraw from one account and deposit into another account
+	// should take in user id and all accounts they own
+	// if transfer withdraw from account 1
+	// then deposit to account 2
+	// should show transaction type
+//	public boolean transferAccounts(List<TransactionsEntity> transactionEntity) {
+//
+//	}
+
+	
+
 	public List<TransactionsEntity> getAllTransactions() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }

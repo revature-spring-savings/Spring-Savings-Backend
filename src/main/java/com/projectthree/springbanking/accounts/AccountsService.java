@@ -37,10 +37,9 @@ public class AccountsService {
         Set<TransactionsEntity> transactionSet = new HashSet<TransactionsEntity>();
         // retrieve account from database
         AccountsEntity accountEntity = accountsRepository.findById(accountID).get();
-        // retrieve user id using accountentity
+        // retrieve user id using account entity
         UsersEntity usersEntity = usersRepository.findById(accountEntity.getUserID()).get();
         // System.out.println(usersEntity);
-
         // new transaction
         TransactionsEntity newTransaction = new TransactionsEntity();
         newTransaction.setTransactionDate(transactionEntity.getTransactionDate());
@@ -102,7 +101,6 @@ public class AccountsService {
     public UsersEntity createAccount(AccountsEntity accountsEntity, Integer userID) {
         // retrieve existing user from database
         UsersEntity usersEntity = usersRepository.findById(userID).get();
-        System.out.println(usersEntity);
         // create new account
         AccountsEntity accountEntity = new AccountsEntity();
         // set
