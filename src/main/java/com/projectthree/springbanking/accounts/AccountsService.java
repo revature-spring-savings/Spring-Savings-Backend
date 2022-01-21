@@ -45,22 +45,6 @@ public class AccountsService {
 		return accountsRepository.findById(accountID);
 		
 	}
-	
-	 public AccountsEntity deposit(TransactionsEntity transactionEntity, Integer accountID) {
-	        // deposit amount
-	        double depositAmt =  transactionEntity.getAmount();
-	        // retrieve account from database
-	        AccountsEntity accountEntity = accountsRepository.findById(accountID).get();
-	        // current account balance;
-	        double currBal = accountEntity.getAccountBalance();
-	        // new account balance;
-	        double newAcctBal = currBal + depositAmt;
-	        // set new balance;
-	        accountEntity.setAccountBalance(newAcctBal);
-	        //save new balance into db
-	        accountsRepository.save(accountEntity);
-	        return accountEntity;
-	    }
 
     @Autowired
     private TransactionsRepository transactionsRepository;
@@ -152,6 +136,8 @@ public class AccountsService {
 
         System.out.println(accountEntity);
         usersEntity.setAccountsEntity(accountSet);
+		return usersEntity;
 
  
     }
+}
