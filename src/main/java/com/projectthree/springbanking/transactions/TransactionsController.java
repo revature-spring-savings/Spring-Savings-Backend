@@ -1,7 +1,6 @@
 package com.projectthree.springbanking.transactions;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.projectthree.springbanking.accounts.AccountsEntity;
 
 @RestController
 @RequestMapping("/transactions")
@@ -51,13 +52,13 @@ public class TransactionsController {
 	}
 	
 	@GetMapping("/withdraw")
-	public List<TransactionsEntity> getAllWithdrawalTransactions(@RequestBody Integer accountID) {
-		return ts.getAllWithdrawalTransactions(accountID);
+	public List<TransactionsEntity> getAllWithdrawalTransactions(@RequestBody AccountsEntity a) {
+		return ts.getAllTransactionsByAccountID(a.getAccountID());
 	}
 	
 	@GetMapping("/deposit")
-	public List<TransactionsEntity> getAllDepositTransactions(@RequestBody Integer accountID) {
-		return ts.getAllDepositTransactions(accountID);
+	public List<TransactionsEntity> getAllDepositTransactions(@RequestBody AccountsEntity a) {
+		return ts.getAllTransactionsByAccountID(a.getAccountID());
 	}
 	
 //	@PostMapping("transfer")

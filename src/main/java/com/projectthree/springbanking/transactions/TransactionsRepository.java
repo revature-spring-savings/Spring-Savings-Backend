@@ -12,7 +12,9 @@ import com.projectthree.springbanking.accounts.AccountsEntity;
 @Repository
 public interface TransactionsRepository extends JpaRepository<TransactionsEntity, Integer>{
 
-	List<TransactionsEntity> findByAccountId(Integer accountID);
+	List<TransactionsEntity> findAllByAccountID(Integer accountID);
+
+//	List<TransactionsEntity> findByAccountId(Integer accountID);
 	
 //	@Query("SELECT * FROM transactions WHERE account_id = 1")
 //    List<TransactionsEntity> findAllByAccountId();

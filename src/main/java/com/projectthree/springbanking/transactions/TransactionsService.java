@@ -1,7 +1,9 @@
 package com.projectthree.springbanking.transactions;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,35 +21,12 @@ public class TransactionsService {
     @Autowired
     private AccountsRepository accountsRepository;
 
-	//Jeremy
-	public List<TransactionsEntity> getAllWithdrawalTransactions(Integer accountID) {
-		// get request to see all withdraw from one user
-		// get by account type
-
-//        AccountsEntity accountEntity = accountsRepository.findById(accountID).get();
-//        tr.findAllByAccountId();
-//		if(accountEntity.getAccountType().equals("withdraw")) {
-//			//come back here
-//		}
+	// Gets all transactions by account ID => filtering done on the frontend React
+	public List<TransactionsEntity> getAllTransactionsByAccountID(Integer accountID) {
 		
-        // Grouped by withdraw
+        List<TransactionsEntity> transactionsList = tr.findAllByAccountID(accountID);
         
-//        List<TransactionsEntity> transactionsEntity = tr.findByAccountId(accountID);
-        
-		
-        
-		return null;
-	}
-	
-	//Jeremy
-	public List<TransactionsEntity> getAllDepositTransactions(Integer accountID) {
-		// get request to see all deposts from one user
-		// Grouped by account type
-        AccountsEntity accountEntity = accountsRepository.findById(accountID).get();
-
-		// Grouped by deposit
-		
-		return null;
+		return transactionsList;
 	}
 
 	public TransactionsEntity newTransaction(TransactionsEntity t) {
