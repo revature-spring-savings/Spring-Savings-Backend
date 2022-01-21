@@ -71,8 +71,9 @@ public class TransactionsController {
 		return ts.getAllTransactionsByAccountID(a.getAccountID());
 	}
 	
-//	@PostMapping("transfer")
-//	public List<TransactionsEntity> getAllDepositTransactions() {
+//	@PostMapping("/transfer")
+//	public List<TransactionsEntity> getAllDepositTransactions(@RequestBody List<TransactionsEntity> transactionsEntity) {
+//		ts.transferAccounts(transactionsEntity);
 //		return ts.getAllTransactions();
 //	}
 	
@@ -87,8 +88,4 @@ public class TransactionsController {
 		 tr.deleteById(id);
 		 return "done";
 	}
-	
-	
-	
-
 }

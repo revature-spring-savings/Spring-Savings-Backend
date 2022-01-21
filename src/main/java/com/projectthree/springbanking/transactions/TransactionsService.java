@@ -48,7 +48,9 @@ public class TransactionsService {
 	// if transfer withdraw from account 1
 	// then deposit to account 2
 	// should show transaction type
-
+//	public boolean transferAccounts(List<TransactionsEntity> transactionEntity) {
+//
+//	}
 
 	
 
