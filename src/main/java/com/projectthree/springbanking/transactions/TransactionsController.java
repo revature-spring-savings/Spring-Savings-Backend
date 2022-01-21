@@ -53,6 +53,8 @@ public class TransactionsController {
 		tr.deleteById(id);
 		return "done";
 	}
+	
+
 
 //	@PostMapping
 //	public String createNewTransaction(@RequestBody List<TransactionsEntity> l){	

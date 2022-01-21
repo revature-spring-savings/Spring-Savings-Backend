@@ -24,6 +24,10 @@ public class TransactionsEntity {
 	private int transactionID;
 	@Column
 	private double amount;
+	@Column(name="user_id", insertable=false, updatable = false)
+	private Integer userID;
+	@Column(name="account_id", insertable=false, updatable=false)
+	private Integer accountID;
 	@Column(name="transaction_date")
 	private String transactionDate;
 	@Column(name="transaction_type")
