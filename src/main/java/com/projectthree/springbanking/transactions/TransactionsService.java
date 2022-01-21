@@ -42,7 +42,6 @@ public class TransactionsService {
 		return null;
 	}
 
-<<<<<<< HEAD
 	// transfer between accounts
 	// should create two transactions // withdraw from one account and deposit into another account
 	// should take in user id and all accounts they own
@@ -52,11 +51,11 @@ public class TransactionsService {
 
 
 	
-=======
+
 	public List<TransactionsEntity> getAllTransactions() {
 		// TODO Auto-generated method stub
 		return null;
 	}
->>>>>>> team-1
+
 
 }
