@@ -2,33 +2,55 @@ package com.projectthree.springbanking.accounts;
 
 
 import com.projectthree.springbanking.accounts.AccountsEntity;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import com.projectthree.springbanking.transactions.TransactionsEntity;
 import com.projectthree.springbanking.users.UsersEntity;
 import com.projectthree.springbanking.users.UsersRepository;
 
-import java.util.HashSet;
+
 import java.util.Set;
 
 import com.projectthree.springbanking.transactions.TransactionsRepository;
-import com.projectthree.springbanking.users.UsersEntity;
-import com.projectthree.springbanking.users.UsersRepository;
 
-import java.util.HashSet;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.projectthree.springbanking.accounts.AccountsRepository;
+
 
 
 
 @Service
 public class AccountsService {
-
+	
+	
     @Autowired
     private AccountsRepository accountsRepository;
     
     @Autowired
     private UsersRepository usersRepository;
+	@Autowired
+	public AccountsService(AccountsRepository accountsRepository, UsersRepository usersRepository) {
+		this.accountsRepository = accountsRepository;
+		this.usersRepository = usersRepository;
+	}
+	
+	public List<AccountsEntity> allAccounts() {
+		return accountsRepository.findAll();
+		
+	}
+	
+	public List<AccountsEntity> allAccountsByID(Integer userID) {
+		return accountsRepository.findByuserID(userID);
+		
+	}
+	
+	public Optional <AccountsEntity> accountByID(Integer accountID) {
+		return accountsRepository.findById(accountID);
+		
+	}
 
     @Autowired
     private TransactionsRepository transactionsRepository;
@@ -120,6 +142,7 @@ public class AccountsService {
 
         System.out.println(accountEntity);
         usersEntity.setAccountsEntity(accountSet);
+		return usersEntity;
 
         usersRepository.save(usersEntity);
         return usersEntity;
