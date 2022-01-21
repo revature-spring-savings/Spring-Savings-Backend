@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("*")
 public class TransactionsController {
 	
+<<<<<<< HEAD
 //	@Autowired
 //	private TransactionsService ts;
 //	
@@ -56,6 +57,16 @@ public class TransactionsController {
 		return "done";
 	}
 	
+=======
+
+	@Autowired
+	private TransactionsService ts;
+	
+	@Autowired
+	private TransactionsRepository tr;
+
+
+>>>>>>> 1780fe16d12105199754961fa0e6e2ba8186f530
 	
 	
 

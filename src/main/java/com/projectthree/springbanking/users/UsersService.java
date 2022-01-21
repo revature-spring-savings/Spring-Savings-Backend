@@ -1,8 +1,16 @@
 package com.projectthree.springbanking.users;
 
+<<<<<<< HEAD
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+=======
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+>>>>>>> 1780fe16d12105199754961fa0e6e2ba8186f530
 import org.springframework.stereotype.Service;
 
 @Service
