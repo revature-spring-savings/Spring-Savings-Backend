@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.projectthree.springbanking.accounts.AccountsEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ public class TransactionsService {
 	@Autowired
 	private TransactionsRepository tr;
 	public TransactionsEntity t;
+
 	
     @Autowired
     private AccountsRepository accountsRepository;
@@ -28,6 +30,7 @@ public class TransactionsService {
         
 		return transactionsList;
 	}
+
 
 	public TransactionsEntity newTransaction(TransactionsEntity t) {
 		// create new transaction here
