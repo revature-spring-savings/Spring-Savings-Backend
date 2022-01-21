@@ -1,5 +1,18 @@
 package com.projectthree.springbanking.accounts;
 
+import java.util.Set;
+
+import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.projectthree.springbanking.transactions.TransactionsEntity;
+import com.projectthree.springbanking.users.UsersEntity;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
