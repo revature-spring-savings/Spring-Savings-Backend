@@ -1,11 +1,10 @@
 package com.projectthree.springbanking.transactions;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.projectthree.springbanking.accounts.AccountsEntity;
 import com.projectthree.springbanking.users.UsersEntity;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -13,6 +12,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(exclude="usersEntity")
 @Entity
 //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name="transactions")
@@ -35,13 +36,13 @@ public class TransactionsEntity {
 	@Column(name="transaction_note")
 	private String transactionNote; // paycheck from Revature OR electricity bill OR transfer from acct 1 to acct 2
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name = "user_id")
 	@JsonIgnore
 	@ToString.Exclude
 	private UsersEntity usersEntity;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="account_id")
 	@JsonIgnore
 	@ToString.Exclude
