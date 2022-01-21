@@ -1,8 +1,12 @@
 package com.projectthree.springbanking.transactions;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
+import com.projectthree.springbanking.exception.SpringBankingAPIException;
+import com.projectthree.springbanking.exception.SpringBankingServerException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projectthree.springbanking.accounts.AccountsEntity;
+
+import javax.persistence.EntityNotFoundException;
 
 @RestController
 @RequestMapping("/transactions")
@@ -27,12 +33,15 @@ public class TransactionsController {
 
 	@GetMapping
 	public List<TransactionsEntity> getAllTransactions() {
-	//	System.out.println(tr.findAll());
+		if (tr.findAll().size() <= 0) {
+			throw new SpringBankingServerException("Could not retrieve transactions from server");
+		}
 		return tr.findAll();
 	}
 
 	@GetMapping("/id/{id}")
 	public TransactionsEntity getOneTransaction(@PathVariable Integer id) {
+		System.out.println(tr.getById(id));
 		return tr.getById(id);
 	}
 
@@ -62,26 +71,21 @@ public class TransactionsController {
 		return ts.getAllTransactionsByAccountID(a.getAccountID());
 	}
 	
+//	@PostMapping("/transfer")
+//	public List<TransactionsEntity> getAllDepositTransactions(@RequestBody List<TransactionsEntity> transactionsEntity) {
+//		ts.transferAccounts(transactionsEntity);
+//		return ts.getAllTransactions();
+//	}
+	
 	@DeleteMapping("/id/{id}")
 	public String deleteOneTransaction(@PathVariable Integer id) {
-		tr.deleteById(id);
-		return "done";
+		if (id == 0) {
+			throw new SpringBankingAPIException("Please enter an transaction id greater than 0");
+		}
+		if (tr.findAllByAccountID(id).isEmpty()) {
+			throw new NoSuchElementException("Could not find transaction with id:" + " " + id);
+		}
+		 tr.deleteById(id);
+		 return "done";
 	}
-	
-
-
-//	@PostMapping
-//	public String createNewTransaction(@RequestBody List<TransactionsEntity> l){	
-//		if(l.size() == 1) {
-//			tr.save(l.get(0));
-//			return "one";
-//		}else if(l.size()==2){
-//			tr.save(l.get(0));
-//			tr.save(l.get(1));
-//			return "two";			
-//		}else {
-//			return "none";
-//		}		
-//	}
-
 }
