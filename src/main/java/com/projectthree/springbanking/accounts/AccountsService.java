@@ -4,16 +4,16 @@ package com.projectthree.springbanking.accounts;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-
-import com.projectthree.springbanking.users.UsersEntity;
-import com.projectthree.springbanking.users.UsersRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.projectthree.springbanking.transactions.TransactionsEntity;
 import com.projectthree.springbanking.users.UsersEntity;
 import com.projectthree.springbanking.users.UsersRepository;
+
+
+import java.util.Set;
+
+import com.projectthree.springbanking.transactions.TransactionsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import com.projectthree.springbanking.accounts.AccountsRepository;
 
 @Service
@@ -62,45 +62,96 @@ public class AccountsService {
 	        return accountEntity;
 	    }
 
-	    // withdraw money from account
+    @Autowired
+    private TransactionsRepository transactionsRepository;
 
-	    public AccountsEntity withdraw(TransactionsEntity transactionEntity, Integer accountID) {
-	        // withdraw amt
-	        double withdrawAmt = transactionEntity.getAmount();
-	        // retrieve account from db
-	        AccountsEntity accountEntity = accountsRepository.findById(accountID).get();
-	        // current account balance;
-	        double currBal = accountEntity.getAccountBalance();
-	        // new account balance;
-	        double newAcctBal = currBal - withdrawAmt;
-	        // set new balance;
-	        accountEntity.setAccountBalance(newAcctBal);
-	        accountsRepository.save(accountEntity);
-	        return accountEntity;
-	    }
-	    
-	    public UsersEntity createAccount(AccountsEntity accountsEntity, Integer userID) {
-	        // retrieve existing user from database
-	        UsersEntity usersEntity = usersRepository.findById(userID).get();
-	        System.out.println(usersEntity);
-	        // create new account
-	        AccountsEntity accountEntity = new AccountsEntity();
-	        Set<AccountsEntity> accountSet = new HashSet<AccountsEntity>();
-	        accountEntity.setAccountBalance(accountsEntity.getAccountBalance());
-	        accountEntity.setAccountType(accountsEntity.getAccountType());
-	        accountEntity.setUsersEntity(usersEntity);
-	        accountsRepository.save(accountEntity);
-	        accountSet.add(accountEntity);
+    // deposit money into account
+    // should take into account what type of account it is
+    public AccountsEntity deposit(TransactionsEntity transactionEntity, Integer accountID) {
+        // deposit amount
+        double depositAmt =  transactionEntity.getAmount();
+        Set<TransactionsEntity> transactionSet = new HashSet<TransactionsEntity>();
+        // retrieve account from database
+        AccountsEntity accountEntity = accountsRepository.findById(accountID).get();
+        // retrieve user id using account entity
+        UsersEntity usersEntity = usersRepository.findById(accountEntity.getUserID()).get();
+        // System.out.println(usersEntity);
+        // new transaction
+        TransactionsEntity newTransaction = new TransactionsEntity();
+        newTransaction.setTransactionDate(transactionEntity.getTransactionDate());
+        newTransaction.setTransactionNote(transactionEntity.getTransactionNote());
+        newTransaction.setTransactionType(transactionEntity.getTransactionType());
+        newTransaction.setAmount(transactionEntity.getAmount());
+        // saves account entity to transaction
+        newTransaction.setAccountsEntity(accountEntity);
+        // saves user entity to transaction
+        newTransaction.setUsersEntity(usersEntity);
+        // save new transaction to transaction table
+        transactionsRepository.save(newTransaction);
+        transactionSet.add(newTransaction);
+        // current account balance;
+        double currBal = accountEntity.getAccountBalance();
+        // new account balance;
+        double newAcctBal = currBal + depositAmt;
+        // set new balance;
+        accountEntity.setAccountBalance(newAcctBal);
+        accountEntity.setTransactionEntity(transactionSet);
+        //save new balance into db
+        accountsRepository.save(accountEntity);
+        return accountEntity;
+    }
 
+    // withdraw money from account
 
-	        System.out.println(accountEntity);
-	        usersEntity.setAccountsEntity(accountSet);
+    public AccountsEntity withdraw(TransactionsEntity transactionEntity, Integer accountID) {
+        // withdraw amt
+        double withdrawAmt = transactionEntity.getAmount();
+        // retrieve account from db
+        AccountsEntity accountEntity = accountsRepository.findById(accountID).get();
+        Set<TransactionsEntity> transactionSet = new HashSet<TransactionsEntity>();
+        // retrieve user id using accountentity
+        UsersEntity usersEntity = usersRepository.findById(accountEntity.getUserID()).get();
+        // System.out.println(usersEntity);
+        TransactionsEntity newTransaction = new TransactionsEntity();
+        newTransaction.setTransactionDate(transactionEntity.getTransactionDate());
+        newTransaction.setTransactionNote(transactionEntity.getTransactionNote());
+        newTransaction.setTransactionType(transactionEntity.getTransactionType());
+        newTransaction.setAmount(transactionEntity.getAmount());
+        // saves account entity to transaction
+        newTransaction.setAccountsEntity(accountEntity);
+        // saves user entity to transaction
+        newTransaction.setUsersEntity(usersEntity);
+        // save new transaction to transaction table
+        transactionsRepository.save(newTransaction);
+        transactionSet.add(newTransaction);
+        // current account balance;
+        double currBal = accountEntity.getAccountBalance();
+        // new account balance;
+        double newAcctBal = currBal - withdrawAmt;
+        // set new balance;
+        accountEntity.setAccountBalance(newAcctBal);
+        accountsRepository.save(accountEntity);
+        return accountEntity;
+    }
 
-	        usersRepository.save(usersEntity);
-	        return usersEntity;
-	        }
-	
-	
+    public UsersEntity createAccount(AccountsEntity accountsEntity, Integer userID) {
+        // retrieve existing user from database
+        UsersEntity usersEntity = usersRepository.findById(userID).get();
+        // create new account
+        AccountsEntity accountEntity = new AccountsEntity();
+        // set
+        Set<AccountsEntity> accountSet = new HashSet<AccountsEntity>();
+        // set account balance
+        accountEntity.setAccountBalance(accountsEntity.getAccountBalance());
+        // get account type
+        accountEntity.setAccountType(accountsEntity.getAccountType());
+        // this will set the foreign key relationship
+        accountEntity.setUsersEntity(usersEntity);
+        accountsRepository.save(accountEntity);
+        accountSet.add(accountEntity);
+
+        System.out.println(accountEntity);
+        usersEntity.setAccountsEntity(accountSet);
 
  
     }
