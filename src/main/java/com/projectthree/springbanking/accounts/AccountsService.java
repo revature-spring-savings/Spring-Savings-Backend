@@ -15,6 +15,8 @@ import com.projectthree.springbanking.transactions.TransactionsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.projectthree.springbanking.accounts.AccountsRepository;
+import com.projectthree.springbanking.exception.SpringBankingAPIException;
+import com.projectthree.springbanking.exception.SpringBankingException;
 
 @Service
 public class AccountsService {
@@ -49,6 +51,7 @@ public class AccountsService {
     @Autowired
     private TransactionsRepository transactionsRepository;
 
+    //andy method
     // deposit money into account
     // should take into account what type of account it is
     public AccountsEntity deposit(TransactionsEntity transactionEntity, Integer accountID) {
@@ -85,38 +88,67 @@ public class AccountsService {
         return accountEntity;
     }
 
-    // withdraw money from account
 
-    public AccountsEntity withdraw(TransactionsEntity transactionEntity) {
+    // withdraw money from account
+//andy method
+    public AccountsEntity withdraw(TransactionsEntity transactionEntity, Integer accountID) {
         // withdraw amt
-    //    double withdrawAmt = transactionEntity.getAmount();
+        double withdrawAmt = transactionEntity.getAmount();
         // retrieve account from db
-        AccountsEntity accountEntity = accountsRepository.findById(transactionEntity.getAccountID()).get();
+        AccountsEntity accountEntity = accountsRepository.findById(accountID).get();
         Set<TransactionsEntity> transactionSet = new HashSet<TransactionsEntity>();
+        // retrieve user id using accountentity
+        UsersEntity usersEntity = usersRepository.findById(accountEntity.getUserID()).get();
+        // System.out.println(usersEntity);
+        TransactionsEntity newTransaction = new TransactionsEntity();
+        newTransaction.setTransactionDate(transactionEntity.getTransactionDate());
+        newTransaction.setTransactionNote(transactionEntity.getTransactionNote());
+        newTransaction.setTransactionType(transactionEntity.getTransactionType());
+        newTransaction.setAmount(transactionEntity.getAmount());
+        // saves account entity to transaction
+        newTransaction.setAccountsEntity(accountEntity);
+        // saves user entity to transaction
+        newTransaction.setUsersEntity(usersEntity);
+        // save new transaction to transaction table
+        transactionsRepository.save(newTransaction);
+        transactionSet.add(newTransaction);
         // current account balance;
-   //     double currBal = accountEntity.getAccountBalance();
+        double currBal = accountEntity.getAccountBalance();
         // new account balance;
-    //    double newAcctBal = currBal - withdrawAmt;
+        double newAcctBal = currBal - withdrawAmt;
         // set new balance;
+        accountEntity.setAccountBalance(newAcctBal);
+        accountsRepository.save(accountEntity);
+        return accountEntity;
+    }
+
+    //colleen method
+    public AccountsEntity withdraw(TransactionsEntity transactionEntity) {
+        AccountsEntity accountEntity = accountsRepository.findById(transactionEntity.getAccountID()).get();
+      
+        if(transactionEntity.getAccountID() > accountEntity.getAccountBalance()) {
+        	throw new SpringBankingAPIException("Withdrawal amount cannot exceed balance");
+        }else {
         accountEntity.setAccountBalance(accountEntity.getAccountBalance()-transactionEntity.getAmount());
         transactionsRepository.save(transactionEntity);
+        Set<TransactionsEntity> transactionSet = accountEntity.getTransactionEntity();
         transactionSet.add(transactionEntity);
-        accountsRepository.save(accountEntity);
-        // retrieve user id using accountentity
-//        UsersEntity usersEntity = usersRepository.findById(accountEntity.getUserID()).get();
-        // System.out.println(usersEntity);
-//        TransactionsEntity newTransaction = new TransactionsEntity();
-//        newTransaction.setTransactionDate(transactionEntity.getTransactionDate());
-//        newTransaction.setTransactionNote(transactionEntity.getTransactionNote());
-//        newTransaction.setTransactionType(transactionEntity.getTransactionType());
-//        newTransaction.setAmount(transactionEntity.getAmount());
-//        // saves account entity to transaction
-//        newTransaction.setAccountsEntity(accountEntity);
-//        // saves user entity to transaction
-//        newTransaction.setUsersEntity(usersEntity);
-        // save new transaction to transaction table
-       
+        accountEntity.setTransactionEntity(transactionSet);
+        accountsRepository.save(accountEntity);   
+        return accountEntity;
+        }
       
+    }
+    
+    //colleen method
+    public AccountsEntity deposit(TransactionsEntity transactionEntity) {
+        AccountsEntity accountEntity = accountsRepository.findById(transactionEntity.getAccountID()).get();
+        Set<TransactionsEntity> transactionSet = accountEntity.getTransactionEntity();
+        accountEntity.setAccountBalance(accountEntity.getAccountBalance()+transactionEntity.getAmount());
+        transactionsRepository.save(transactionEntity);
+        transactionSet.add(transactionEntity);
+        accountEntity.setTransactionEntity(transactionSet);
+        accountsRepository.save(accountEntity);
         return accountEntity;
     }
 
