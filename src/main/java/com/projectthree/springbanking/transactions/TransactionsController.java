@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projectthree.springbanking.accounts.AccountsEntity;
+import com.projectthree.springbanking.accounts.AccountsService;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -27,6 +28,9 @@ public class TransactionsController {
 
 	@Autowired
 	private TransactionsService ts;
+	
+	@Autowired
+	private AccountsService as;
 
 	@Autowired
 	private TransactionsRepository tr;
@@ -48,7 +52,12 @@ public class TransactionsController {
 	@PostMapping
 	public List<TransactionsEntity> createNewTransaction(@RequestBody List<TransactionsEntity> l) {
 		if (l.size() == 1) {
-			tr.save(l.get(0));
+	//		tr.save(l.get(0));
+			if(l.get(0).getTransactionType().equals("WITHDRAW")) {
+				as.withdraw(l.get(0));
+			}else {
+				as.withdraw(null);
+			}
 			return l;
 		} else if (l.size() == 2) {
 			tr.save(l.get(0));

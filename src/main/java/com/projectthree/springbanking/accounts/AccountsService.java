@@ -87,34 +87,36 @@ public class AccountsService {
 
     // withdraw money from account
 
-    public AccountsEntity withdraw(TransactionsEntity transactionEntity, Integer accountID) {
+    public AccountsEntity withdraw(TransactionsEntity transactionEntity) {
         // withdraw amt
-        double withdrawAmt = transactionEntity.getAmount();
+    //    double withdrawAmt = transactionEntity.getAmount();
         // retrieve account from db
-        AccountsEntity accountEntity = accountsRepository.findById(accountID).get();
+        AccountsEntity accountEntity = accountsRepository.findById(transactionEntity.getAccountID()).get();
         Set<TransactionsEntity> transactionSet = new HashSet<TransactionsEntity>();
-        // retrieve user id using accountentity
-        UsersEntity usersEntity = usersRepository.findById(accountEntity.getUserID()).get();
-        // System.out.println(usersEntity);
-        TransactionsEntity newTransaction = new TransactionsEntity();
-        newTransaction.setTransactionDate(transactionEntity.getTransactionDate());
-        newTransaction.setTransactionNote(transactionEntity.getTransactionNote());
-        newTransaction.setTransactionType(transactionEntity.getTransactionType());
-        newTransaction.setAmount(transactionEntity.getAmount());
-        // saves account entity to transaction
-        newTransaction.setAccountsEntity(accountEntity);
-        // saves user entity to transaction
-        newTransaction.setUsersEntity(usersEntity);
-        // save new transaction to transaction table
-        transactionsRepository.save(newTransaction);
-        transactionSet.add(newTransaction);
         // current account balance;
-        double currBal = accountEntity.getAccountBalance();
+   //     double currBal = accountEntity.getAccountBalance();
         // new account balance;
-        double newAcctBal = currBal - withdrawAmt;
+    //    double newAcctBal = currBal - withdrawAmt;
         // set new balance;
-        accountEntity.setAccountBalance(newAcctBal);
+        accountEntity.setAccountBalance(accountEntity.getAccountBalance()-transactionEntity.getAmount());
+        transactionsRepository.save(transactionEntity);
+        transactionSet.add(transactionEntity);
         accountsRepository.save(accountEntity);
+        // retrieve user id using accountentity
+//        UsersEntity usersEntity = usersRepository.findById(accountEntity.getUserID()).get();
+        // System.out.println(usersEntity);
+//        TransactionsEntity newTransaction = new TransactionsEntity();
+//        newTransaction.setTransactionDate(transactionEntity.getTransactionDate());
+//        newTransaction.setTransactionNote(transactionEntity.getTransactionNote());
+//        newTransaction.setTransactionType(transactionEntity.getTransactionType());
+//        newTransaction.setAmount(transactionEntity.getAmount());
+//        // saves account entity to transaction
+//        newTransaction.setAccountsEntity(accountEntity);
+//        // saves user entity to transaction
+//        newTransaction.setUsersEntity(usersEntity);
+        // save new transaction to transaction table
+       
+      
         return accountEntity;
     }
 
