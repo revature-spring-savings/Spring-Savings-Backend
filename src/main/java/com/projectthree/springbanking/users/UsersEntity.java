@@ -28,7 +28,7 @@ public class UsersEntity {
     @Column(name="username")
     private String username;
     @Column(name="pass")
-    private String pass;
+    private String pass;  
     @Column(name="phone_number")
     private String phoneNumber;
     @Column(name="dob")

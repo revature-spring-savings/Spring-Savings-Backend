@@ -47,7 +47,6 @@ public class AccountsController {
 			throw new NoSuchElementException("Could not deposit into account since account ID: " + acctID + " does not exist");
 		}
 		AccountsEntity ac = ar.findById(acctID).get();
-
 		as.deposit(transactionEntity, acctID);
 		return ac;
 	}

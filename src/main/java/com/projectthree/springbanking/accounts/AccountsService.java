@@ -29,6 +29,10 @@ public class AccountsService {
     @Autowired
     private TransactionsRepository transactionsRepository;
 
+    public AccountsService(AccountsRepository accountsRepository) {
+        this.accountsRepository = accountsRepository;
+    }
+
     // deposit money into account
     // should take into account what type of account it is
     public AccountsEntity deposit(TransactionsEntity transactionEntity, Integer accountID) {
