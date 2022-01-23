@@ -57,7 +57,7 @@ public class AccountsEntity {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="account_id")
 	private Integer accountID;
-	@Column(name="user_id" , insertable=false, updatable=false )
+	@Column(name="user_id")
 	private Integer userID;
 	@Column(name="account_type")
 	private String accountType;
@@ -66,7 +66,7 @@ public class AccountsEntity {
 
 	@ToString.Exclude
 	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="user_id")
+	@JoinColumn(name = "user_id", referencedColumnName="user_id", nullable=false, insertable=false, updatable=false)
 	
 	@JsonBackReference
 	private UsersEntity usersEntity;
