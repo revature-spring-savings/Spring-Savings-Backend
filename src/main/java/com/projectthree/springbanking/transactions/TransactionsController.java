@@ -129,7 +129,7 @@ public class TransactionsController {
 		if (id == 0) {
 			throw new SpringBankingAPIException("Please enter an transaction id greater than 0");
 		}
-		if (tr.findAllByAccountID(id).isEmpty()) {
+		if (!tr.findById(id).isPresent()) {
 			throw new NoSuchElementException("Could not find transaction with id:" + " " + id);
 		}
 		tr.deleteById(id);
