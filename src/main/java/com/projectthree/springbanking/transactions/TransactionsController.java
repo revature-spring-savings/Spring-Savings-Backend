@@ -62,6 +62,11 @@ public class TransactionsController {
 		return t;
 	}
 
+	@PostMapping("/test")
+	public TransactionsEntity createtesting(@RequestBody List<TransactionsEntity> l) {
+		
+		return tr.save(l.get(0));
+	}
 	@PostMapping
 	public List<AccountsEntity> createNewTransaction(@RequestBody List<TransactionsEntity> l) {
 		List<AccountsEntity> al = new ArrayList<AccountsEntity>();
@@ -112,6 +117,12 @@ public class TransactionsController {
 	public List<TransactionsEntity> getAllDepositTransactions(@RequestBody AccountsEntity a) {
 		return ts.getAllTransactionsByAccountID(a.getAccountID());
 	}
+	
+	//get deposits by accountID
+		@GetMapping("/all/{accountID}")
+		public List<TransactionsEntity> getAllDepositTransactions(@PathVariable Integer accountID) {
+			return ts.getAllTransactionsByAccountID(accountID);
+		}
 
 	@DeleteMapping("/id/{id}")
 	public String deleteOneTransaction(@PathVariable Integer id) {

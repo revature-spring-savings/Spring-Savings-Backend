@@ -26,6 +26,9 @@ public class AccountsService {
 	
 	@Autowired
 	    private UsersRepository usersRepository;
+	
+	@Autowired
+    private TransactionsRepository transactionsRepository;
 
 	@Autowired
 	public AccountsService(AccountsRepository accountsRepository, UsersRepository usersRepository) {
@@ -47,9 +50,6 @@ public class AccountsService {
 		return accountsRepository.findById(accountID);
 		
 	}
-
-    @Autowired
-    private TransactionsRepository transactionsRepository;
 
     //andy method
     // deposit money into account
@@ -130,6 +130,8 @@ public class AccountsService {
         	throw new SpringBankingAPIException("Withdrawal amount cannot exceed balance");
         }else {
         accountEntity.setAccountBalance(accountEntity.getAccountBalance()-transactionEntity.getAmount());
+        transactionEntity.setAccountID(accountEntity.getAccountID());
+        transactionEntity.setUserID(accountEntity.getUserID());
         transactionsRepository.save(transactionEntity);
         Set<TransactionsEntity> transactionSet = accountEntity.getTransactionEntity();
         transactionSet.add(transactionEntity);
@@ -142,9 +144,15 @@ public class AccountsService {
     
     //colleen method
     public AccountsEntity deposit(TransactionsEntity transactionEntity) {
+    	System.out.println(transactionEntity.getAccountID());
+    	System.out.println(transactionEntity.getUserID());
+    	transactionEntity.getAccountID();
+    	System.out.println(transactionEntity.getAccountID());
         AccountsEntity accountEntity = accountsRepository.findById(transactionEntity.getAccountID()).get();
         Set<TransactionsEntity> transactionSet = accountEntity.getTransactionEntity();
         accountEntity.setAccountBalance(accountEntity.getAccountBalance()+transactionEntity.getAmount());
+        transactionEntity.setAccountID(accountEntity.getAccountID());
+        transactionEntity.setUserID(accountEntity.getUserID());
         transactionsRepository.save(transactionEntity);
         transactionSet.add(transactionEntity);
         accountEntity.setTransactionEntity(transactionSet);
