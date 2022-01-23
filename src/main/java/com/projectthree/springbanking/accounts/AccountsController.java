@@ -35,9 +35,19 @@ public class AccountsController {
 	
 	@Autowired
 	private AccountsRepository ar;
-	
+
+	@Autowired
+	private TransactionsRepository tr;
+
+	@Autowired
+	private UsersRepository usersRepository;
+
+
 	@GetMapping("/{userID}/all-accounts")
 	public List <AccountsEntity> userAccounts(@PathVariable Integer userID){
+		if (!ar.findByAccountID(userID).isPresent() || userID < 0) {
+			throw new NoSuchElementException("User with id: " + userID + " does not exist!");
+		}
 				return ar.findByuserID(userID);
 		
 //		userService.findById(userID);
@@ -46,18 +56,14 @@ public class AccountsController {
 	
 	@GetMapping("/{accountID}")
 	public AccountsEntity userAccountByID(@PathVariable Integer accountID){
+		if (!ar.findById(accountID).isPresent() || accountID < 0) {
+			throw new NoSuchElementException("Account with id: " + accountID + " does not exist!");
+		}
 	//	Optional<AccountsEntity> o = as.accountByID(accountID);
 	//	AccountsEntity a = o.get();
 		// return a;
 		return ar.findById(accountID).get();
 	}
-
-	@Autowired
-	private TransactionsRepository tr;
-
-	@Autowired
-	private UsersRepository usersRepository;
-
 	
 	@GetMapping
 	public List<AccountsEntity> getAllAccounts() {

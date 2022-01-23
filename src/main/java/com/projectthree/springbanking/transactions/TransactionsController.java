@@ -1,5 +1,6 @@
 package com.projectthree.springbanking.transactions;
 
+import java.lang.reflect.Array;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -41,7 +42,9 @@ public class TransactionsController {
 	
 	@GetMapping("/id/{id}")
 	public TransactionsEntity getOneTransaction(@PathVariable Integer id) {
-		System.out.println(tr.getById(id));
+	if (id == 0 || id == null || tr.getById(id) == null|| !tr.existsById(id)) {
+		throw new NoSuchElementException("Transaction with id: " + id + " does not exist!");
+	}
 		return tr.getById(id);
 	}
 	
@@ -63,11 +66,17 @@ public class TransactionsController {
 	
 	@GetMapping("/withdraw")
 	public List<TransactionsEntity> getAllWithdrawalTransactions(@RequestBody AccountsEntity a) {
+		if (ts.getAllTransactionsByAccountID(a.getAccountID()).size() == 0) {
+			throw new SpringBankingServerException("Could not retrieve accounts or withdraw transactions do not exist..");
+		}
 		return ts.getAllTransactionsByAccountID(a.getAccountID());
 	}
 	
 	@GetMapping("/deposit")
 	public List<TransactionsEntity> getAllDepositTransactions(@RequestBody AccountsEntity a) {
+		if (ts.getAllTransactionsByAccountID(a.getAccountID()).size() == 0) {
+			throw new SpringBankingServerException("Could not retrieve accounts or deposit transactions do not exist..");
+		}
 		return ts.getAllTransactionsByAccountID(a.getAccountID());
 	}
 	
