@@ -41,10 +41,10 @@ public class AccountsService {
 		
 	}
 	
-	public Optional <AccountsEntity> accountByID(Integer accountID) {
-		return accountsRepository.findById(accountID);
-		
-	}
+//	public Optional <AccountsEntity> accountByID(Integer accountID) {
+//		return accountsRepository.findById(accountID);
+//
+//	}
 
     @Autowired
     private TransactionsRepository transactionsRepository;

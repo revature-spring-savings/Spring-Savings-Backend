@@ -67,7 +67,6 @@ public class AccountsEntity {
 	@ToString.Exclude
 	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="user_id")
-	
 	@JsonBackReference
 	private UsersEntity usersEntity;
 	//colleen made a change
