@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin(origins="*")
 public class UsersController {
 	
 	static Logger logger = LoggerFactory.getLogger(UsersController.class);
@@ -27,12 +28,12 @@ public class UsersController {
 		return  ur.findAll();
 	}
 	
-	@GetMapping("/addtest")
-	public String makeUser() {
-		UsersEntity u = new UsersEntity();	
-		ur.save(u);
-		return "hello";
-	}
+//	@GetMapping("/addtest")
+//	public String makeUser() {
+//		UsersEntity u = new UsersEntity();	
+//		ur.save(u);
+//		return "hello";
+//	}
 	
 	
 	@PostMapping("/login")
@@ -54,7 +55,7 @@ public class UsersController {
 	
 	@GetMapping("/username/{username}")
 	public UsersEntity getUserbyUsername(@PathVariable String username) {
-		return us.getByUsername(username);
+		return us.findByUsername(username);
 	}
 	
 	@PutMapping("/update/")

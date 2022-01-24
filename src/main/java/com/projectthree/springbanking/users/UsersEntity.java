@@ -1,13 +1,13 @@
 package com.projectthree.springbanking.users;
 
-<<<<<<< HEAD
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.projectthree.springbanking.accounts.AccountsEntity;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
-=======
+
 
 import lombok.Data;
 
@@ -17,10 +17,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
 
->>>>>>> 1780fe16d12105199754961fa0e6e2ba8186f530
+
+
 
 @Entity
 @Data
@@ -43,7 +42,7 @@ public class UsersEntity {
     @Column(name="username")
     private String username;
     @Column(name="pass")
-    private String pass;
+    private String password;
     @Column(name="phone_number")
     private String phoneNumber;
     @Column(name="dob")
