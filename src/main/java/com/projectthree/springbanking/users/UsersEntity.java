@@ -18,12 +18,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> f8aa9c9e5d17569d2ca1803511f65fd6a7f7d914
-
 @Entity
 @Data
 @NoArgsConstructor
