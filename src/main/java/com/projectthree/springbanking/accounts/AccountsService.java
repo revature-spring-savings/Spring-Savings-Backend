@@ -5,6 +5,8 @@ import com.projectthree.springbanking.accounts.AccountsEntity;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
+
 import com.projectthree.springbanking.transactions.TransactionsEntity;
 import com.projectthree.springbanking.users.UsersEntity;
 import com.projectthree.springbanking.users.UsersRepository;
@@ -57,6 +59,8 @@ public class AccountsService {
 		return accountsRepository.findById(accountID);
 		
 	}
+	public static Scanner keyboard = new Scanner(System.in);
+
 
     //andy method
     // deposit money into account
@@ -167,28 +171,27 @@ public class AccountsService {
         return accountEntity;
     }
 
-    public UsersEntity createAccount(AccountsEntity accountsEntity, Integer userID) {
+    public AccountsEntity createAccount(AccountsEntity accountsEntity, Integer userID) {
         // retrieve existing user from database
         UsersEntity usersEntity = usersRepository.findById(userID).get();
         // create new account
-        AccountsEntity accountEntity = new AccountsEntity();
+//        AccountsEntity accountEntity = new AccountsEntity();
         // set
         Set<AccountsEntity> accountSet = new HashSet<AccountsEntity>();
         // set account balance
-        accountEntity.setAccountBalance(accountsEntity.getAccountBalance());
+//        accountEntity.setUserID(accountsEntity.getUserID());
         // get account type
-        accountEntity.setAccountType(accountsEntity.getAccountType());
+//        accountEntity.setAccountType(accountsEntity.getAccountType());
         // this will set the foreign key relationship
-        accountEntity.setUsersEntity(usersEntity);
-        accountsRepository.save(accountEntity);
-        accountSet.add(accountEntity);
+//        accountEntity.setUsersEntity(usersEntity);
+        accountsRepository.save(accountsEntity);
+        accountSet.add(accountsEntity);
 
-        System.out.println(accountEntity);
+        System.out.println(accountsEntity);
         usersEntity.setAccountsEntity(accountSet);
-		return usersEntity;
 
         usersRepository.save(usersEntity);
-        return usersEntity;
+        return accountsEntity;
 
 		// set values for the new account
     	
@@ -197,6 +200,48 @@ public class AccountsService {
     	// then save/ insert
     	
     }
+    
+
+    
+    private double getDeposit(String account_type) {
+
+
+		double initialDeposit = 0;
+		Boolean valid = false;
+		while(!valid) {
+			
+			System.out.print("Please enter initial deposit: ");
+			
+			try {
+				
+				initialDeposit = Double.parseDouble(keyboard.next());
+				
+			}
+			catch(NumberFormatException e) {
+				
+				System.out.println("Deposit must be a number!");
+			}
+			
+			if(account_type.equalsIgnoreCase("checking")) {
+				if(initialDeposit < 100) {
+					System.out.println("Checking requires $100 minimum to open");
+				} else {
+					valid = true;
+				}
+				
+			} else if(account_type.equalsIgnoreCase("savings")) {
+				if(initialDeposit < 50) {
+					System.out.println("Saving requires $50 minimum to open");
+				} else {
+					valid = true;
+				}
+				
+		}
+		}
+		return initialDeposit;
+	}
+    
+    
 }
 
 //accountEntity.setAccountBalance(accountsEntity.getAccountBalance());
