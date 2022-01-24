@@ -28,19 +28,18 @@ public class UsersController {
 		return  ur.findAll();
 	}
 	
-//	@GetMapping("/addtest")
-//	public String makeUser() {
-//		UsersEntity u = new UsersEntity();	
-//		ur.save(u);
-//		return "hello";
-//	}
-	
+	@GetMapping("/addtest")
+	public String makeUser() {
+		UsersEntity u = new UsersEntity();	
+		ur.save(u);
+		return "hello";
+	}
 	
 	@PostMapping("/login")
-    public UsersEntity userLogin(@RequestBody UsersEntity user) {
+        public UsersEntity userLogin(@RequestBody UsersEntity user) {
 		logger.info(user.getUsername());
 		return us.userLogin(user);
-    } 
+        } 
 	
 	@PostMapping("/register")
 	public UsersEntity createUser(@RequestBody UsersEntity user) {
@@ -62,9 +61,4 @@ public class UsersController {
 	public String updateUserInfo(@RequestBody UsersEntity user) {
 		return us.updateUser(user);
 	}
-	
-	
-	
-	
-
 }
