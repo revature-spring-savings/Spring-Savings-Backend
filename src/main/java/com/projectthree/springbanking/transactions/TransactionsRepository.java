@@ -19,3 +19,4 @@ public interface TransactionsRepository extends JpaRepository<TransactionsEntity
 //	@Query("SELECT * FROM transactions WHERE account_id = 1")
 //    List<TransactionsEntity> findAllByAccountId();
 }
+

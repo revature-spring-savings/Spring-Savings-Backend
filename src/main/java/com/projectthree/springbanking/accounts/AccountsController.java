@@ -90,13 +90,13 @@ public class AccountsController {
 		as.withdraw(transactionEntity);
 		return ac;
 	}
-
-	@PostMapping("createAccount/{id}")
-	public void CreateAccount(@PathVariable(value="id") Integer userID, @RequestBody AccountsEntity accountsEntity) {
+	@PostMapping("/createAccount/{userID}")
+	public AccountsEntity CreateAccount(@PathVariable(value="userID") Integer userID, @RequestBody AccountsEntity accountsEntity) {
 		if (!usersRepository.findById(userID).isPresent()) {
 			throw new NoSuchElementException("Could not find existing user with id: " + userID);
 		};
 
-		as.createAccount(accountsEntity, userID);
+		return as.createAccount(accountsEntity, userID);
+		
 	}
 }
