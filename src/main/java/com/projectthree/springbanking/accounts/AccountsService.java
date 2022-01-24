@@ -15,6 +15,8 @@ import com.projectthree.springbanking.transactions.TransactionsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.projectthree.springbanking.accounts.AccountsRepository;
+import com.projectthree.springbanking.exception.SpringBankingAPIException;
+import com.projectthree.springbanking.exception.SpringBankingException;
 
 @Service
 public class AccountsService {
@@ -24,6 +26,9 @@ public class AccountsService {
 	
 	@Autowired
 	    private UsersRepository usersRepository;
+	
+	@Autowired
+    private TransactionsRepository transactionsRepository;
 
 	@Autowired
 	public AccountsService(AccountsRepository accountsRepository, UsersRepository usersRepository) {
@@ -46,6 +51,7 @@ public class AccountsService {
 //
 //	}
 
+<<<<<<< HEAD
     @Autowired
     private TransactionsRepository transactionsRepository;
 
@@ -53,6 +59,9 @@ public class AccountsService {
         this.accountsRepository = accountsRepository;
     }
 
+=======
+    //andy method
+>>>>>>> team-1
     // deposit money into account
     // should take into account what type of account it is
     public AccountsEntity deposit(TransactionsEntity transactionEntity, Integer accountID) {
@@ -89,8 +98,9 @@ public class AccountsService {
         return accountEntity;
     }
 
-    // withdraw money from account
 
+    // withdraw money from account
+//andy method
     public AccountsEntity withdraw(TransactionsEntity transactionEntity, Integer accountID) {
         // withdraw amt
         double withdrawAmt = transactionEntity.getAmount();
@@ -118,6 +128,44 @@ public class AccountsService {
         double newAcctBal = currBal - withdrawAmt;
         // set new balance;
         accountEntity.setAccountBalance(newAcctBal);
+        accountsRepository.save(accountEntity);
+        return accountEntity;
+    }
+
+    //colleen method
+    public AccountsEntity withdraw(TransactionsEntity transactionEntity) {
+        AccountsEntity accountEntity = accountsRepository.findById(transactionEntity.getAccountID()).get();
+      
+        if(transactionEntity.getAccountID() > accountEntity.getAccountBalance()) {
+        	throw new SpringBankingAPIException("Withdrawal amount cannot exceed balance");
+        }else {
+        accountEntity.setAccountBalance(accountEntity.getAccountBalance()-transactionEntity.getAmount());
+        transactionEntity.setAccountID(accountEntity.getAccountID());
+        transactionEntity.setUserID(accountEntity.getUserID());
+        transactionsRepository.save(transactionEntity);
+        Set<TransactionsEntity> transactionSet = accountEntity.getTransactionEntity();
+        transactionSet.add(transactionEntity);
+        accountEntity.setTransactionEntity(transactionSet);
+        accountsRepository.save(accountEntity);   
+        return accountEntity;
+        }
+      
+    }
+    
+    //colleen method
+    public AccountsEntity deposit(TransactionsEntity transactionEntity) {
+    	System.out.println(transactionEntity.getAccountID());
+    	System.out.println(transactionEntity.getUserID());
+    	transactionEntity.getAccountID();
+    	System.out.println(transactionEntity.getAccountID());
+        AccountsEntity accountEntity = accountsRepository.findById(transactionEntity.getAccountID()).get();
+        Set<TransactionsEntity> transactionSet = accountEntity.getTransactionEntity();
+        accountEntity.setAccountBalance(accountEntity.getAccountBalance()+transactionEntity.getAmount());
+        transactionEntity.setAccountID(accountEntity.getAccountID());
+        transactionEntity.setUserID(accountEntity.getUserID());
+        transactionsRepository.save(transactionEntity);
+        transactionSet.add(transactionEntity);
+        accountEntity.setTransactionEntity(transactionSet);
         accountsRepository.save(accountEntity);
         return accountEntity;
     }

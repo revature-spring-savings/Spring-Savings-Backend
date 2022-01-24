@@ -25,9 +25,9 @@ public class TransactionsEntity {
 	private int transactionID;
 	@Column
 	private double amount;
-	@Column(name="user_id", insertable=false, updatable = false)
+	@Column(name="user_id")
 	private Integer userID;
-	@Column(name="account_id", insertable=false, updatable=false)
+	@Column(name="account_id")
 	private Integer accountID;
 	@Column(name="transaction_date")
 	private String transactionDate;
@@ -37,13 +37,13 @@ public class TransactionsEntity {
 	private String transactionNote; // paycheck from Revature OR electricity bill OR transfer from acct 1 to acct 2
 
 	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_id", referencedColumnName="user_id", nullable=false, insertable=false, updatable=false)
 	@JsonIgnore
 	@ToString.Exclude
 	private UsersEntity usersEntity;
 
 	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="account_id")
+	@JoinColumn(name = "account_id", referencedColumnName="account_id", nullable=false, insertable=false, updatable=false)
 	@JsonIgnore
 	@ToString.Exclude
 	private AccountsEntity accountsEntity;
