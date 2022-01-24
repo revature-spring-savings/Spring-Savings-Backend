@@ -1,3 +1,4 @@
+
 package com.projectthree.springbanking.transactions;
 
 import java.util.List;
@@ -17,13 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/transactions")
 @CrossOrigin("*")
 public class TransactionsController {
-	
 
-//	@Autowired
-//	private TransactionsService ts;
-//	
-//	@Autowired
-//	private TransactionsRepository tr;
+	@Autowired
+	private TransactionsService ts;
+	
+	@Autowired
+	private TransactionsRepository tr;
 	
 	@GetMapping
 	public List<TransactionsEntity> getAllTransactions() {
@@ -56,18 +56,4 @@ public class TransactionsController {
 		tr.deleteById(id);
 		return "done";
 	}
-	
-
-
-	@Autowired
-	private TransactionsService ts;
-	
-	@Autowired
-	private TransactionsRepository tr;
-
-
-
-	
-	
-
 }

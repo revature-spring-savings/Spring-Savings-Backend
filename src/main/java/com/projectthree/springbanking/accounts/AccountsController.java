@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/accounts")
 @CrossOrigin("*")
 public class AccountsController {
-	
-//	@Autowired
-//	private AccountsService as;
-//	
-//	@Autowired
-//	private AccountsRepository ar;
 
 	@Autowired
-	private TransactionsRepository tr;
+  private AccountsService as;
+  
+  @Autowired
+  private AccountsRepository ar;
+
+  @Autowired
+  private TransactionsRepository tr;
 
 	// error handling
 	@PutMapping("/deposit/{id}")

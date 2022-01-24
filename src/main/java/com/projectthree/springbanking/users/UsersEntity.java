@@ -17,9 +17,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
-
 
 @Entity
 @Data
@@ -42,7 +39,7 @@ public class UsersEntity {
     @Column(name="username")
     private String username;
     @Column(name="pass")
-    private String pass;
+    private String password;
     @Column(name="phone_number")
     private String phoneNumber;
     @Column(name="dob")

@@ -1,16 +1,9 @@
 package com.projectthree.springbanking.users;
 
-<<<<<<< HEAD
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-=======
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
->>>>>>> 1780fe16d12105199754961fa0e6e2ba8186f530
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,10 +20,10 @@ public class UsersService {
 	public UsersEntity userLogin(UsersEntity user) {
 		
 		String username = user.getUsername();
-		String pass = user.getPass();
+		String pass = user.getPassword();
         UsersEntity loggedInUser = ur.findByusername(username);
         System.out.println(loggedInUser);
-        if(loggedInUser.getPass().equals(pass)) {
+        if(loggedInUser.getPassword().equals(pass)) {
             return loggedInUser;
         }else {
             return null; 
@@ -51,7 +44,7 @@ public class UsersService {
 			return user;
 	    }
 	    
-	    public UsersEntity getByUsername(String username) {
+	    public UsersEntity findByUsername(String username) {
 	    	UsersEntity user = ur.findByusername(username);
 			System.out.println(user);
 			return user;
@@ -63,7 +56,7 @@ public class UsersService {
 			u.setFirstName(user.getFirstName());
 			u.setLastName(user.getLastName());
 			u.setEmail(user.getEmail());
-			u.setPass(user.getPass());
+			u.setPassword(user.getPassword());
 			u.setPhoneNumber(user.getPhoneNumber());
 			u.setDob(user.getDob());
 			ur.save(u);
