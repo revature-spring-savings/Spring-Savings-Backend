@@ -36,6 +36,14 @@ public class AccountsController {
 	@Autowired
 	private AccountsRepository ar;
 	
+	@Autowired
+	private TransactionsRepository tr;
+
+	@Autowired
+	private UsersRepository usersRepository;
+
+	
+	
 	@GetMapping("/{userID}/all-accounts")
 	public List <AccountsEntity> userAccounts(@PathVariable Integer userID){
 				return ar.findByuserID(userID);
@@ -52,13 +60,7 @@ public class AccountsController {
 		return ar.findById(accountID).get();
 	}
 
-	@Autowired
-	private TransactionsRepository tr;
 
-	@Autowired
-	private UsersRepository usersRepository;
-
-	
 	@GetMapping
 	public List<AccountsEntity> getAllAccounts() {
 		ar.findAll();
@@ -85,7 +87,7 @@ public class AccountsController {
 			throw new NoSuchElementException("Could not withdraw from account since account ID does not exist");
 		}
 		AccountsEntity ac = ar.findById(acctID).get();
-		as.withdraw(transactionEntity, acctID);
+		as.withdraw(transactionEntity);
 		return ac;
 	}
 	@PostMapping("createAccount/{id}")
