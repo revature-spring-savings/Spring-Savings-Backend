@@ -5,6 +5,7 @@ import com.projectthree.springbanking.accounts.AccountsEntity;
 import java.util.List;
 
 import com.projectthree.springbanking.exception.SpringBankingServerException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin(origins="*")
 public class UsersController {
-
+	
 	static Logger logger = LoggerFactory.getLogger(UsersController.class);
 
 	@Autowired
@@ -44,31 +46,25 @@ public class UsersController {
 		logger.info(user.getUsername());
 		return us.userLogin(user);
 	}
-
+  
 	@PostMapping("/register")
 	public UsersEntity createUser(@RequestBody UsersEntity user) {
 		return us.register(user);
 	}
 
-
+	@GetMapping("/username/{username}")
+	public UsersEntity getUserbyUsername(@PathVariable String username) {
+		return us.findByUsername(username);
+	}
+	
 	@GetMapping("/id/{id}")
 	public UsersEntity findByID(@PathVariable Integer userID) {
 
 		return us.findByID(userID);
 	}
 
-	@GetMapping("/username/{username}")
-	public UsersEntity getUserbyUsername(@PathVariable String username) {
-		return us.getByUsername(username);
-	}
-
 	@PutMapping("/update/")
 	public String updateUserInfo(@RequestBody UsersEntity user) {
 		return us.updateUser(user);
-	}
-
-
-
-
-
+  }
 }
