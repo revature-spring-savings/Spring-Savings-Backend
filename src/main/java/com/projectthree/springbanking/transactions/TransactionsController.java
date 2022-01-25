@@ -1,3 +1,4 @@
+
 package com.projectthree.springbanking.transactions;
 
 import java.util.ArrayList;
@@ -62,11 +63,6 @@ public class TransactionsController {
 		return t;
 	}
 
-	@PostMapping("/test")
-	public TransactionsEntity createtesting(@RequestBody List<TransactionsEntity> l) {
-		
-		return tr.save(l.get(0));
-	}
 	@PostMapping
 	public List<AccountsEntity> createNewTransaction(@RequestBody List<TransactionsEntity> l) {
 		List<AccountsEntity> al = new ArrayList<AccountsEntity>();
@@ -123,10 +119,15 @@ public class TransactionsController {
 		return ts.getAllTransactionsByAccountID(a.getAccountID());
 	}
 	
-	//get deposits by accountID
 		@GetMapping("/all/{accountID}")
 		public List<TransactionsEntity> getAllDepositTransactions(@PathVariable Integer accountID) {
 			return ts.getAllTransactionsByAccountID(accountID);
+		}
+		
+
+		@GetMapping("/userID/{userID}")
+		public List<TransactionsEntity> getAllByUserID(@PathVariable Integer userID) {
+			return tr.findByUserID(userID);
 		}
 
 	@DeleteMapping("/id/{id}")
@@ -134,7 +135,7 @@ public class TransactionsController {
 		if (id == 0) {
 			throw new SpringBankingAPIException("Please enter an transaction id greater than 0");
 		}
-		if (tr.findAllByAccountID(id).isEmpty()) {
+		if (!tr.findById(id).isPresent()) {
 			throw new NoSuchElementException("Could not find transaction with id:" + " " + id);
 		}
 		tr.deleteById(id);

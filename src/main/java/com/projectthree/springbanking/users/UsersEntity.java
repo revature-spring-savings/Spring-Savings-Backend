@@ -1,5 +1,7 @@
 package com.projectthree.springbanking.users;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import com.projectthree.springbanking.accounts.AccountsEntity;
 import com.projectthree.springbanking.transactions.TransactionsEntity;
 import lombok.*;
@@ -9,11 +11,21 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
+
+import lombok.Data;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(exclude="usersEntity")
-@Entity
 @Table(name="users")
 public class UsersEntity {
 
@@ -42,9 +54,6 @@ public class UsersEntity {
     // multiple accounts one users
     @OneToMany(fetch = FetchType.LAZY, mappedBy="usersEntity", cascade = CascadeType.ALL)
     private Set<AccountsEntity> accountsEntity; 
-
-   
-    
 
     @ToString.Exclude
     @OneToMany(fetch = FetchType.LAZY, mappedBy="usersEntity", cascade = CascadeType.ALL)
