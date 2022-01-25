@@ -18,10 +18,10 @@ public class UsersService {
 	public UsersEntity userLogin(UsersEntity user) {
 		
 		String username = user.getUsername();
-		String pass = user.getPassword();
+		String pass = user.getPass();
         UsersEntity loggedInUser = ur.findByusername(username);
         System.out.println(loggedInUser);
-        if(loggedInUser.getPassword().equals(pass)) {
+        if(loggedInUser.getPass().equals(pass)) {
             return loggedInUser;
         }else {
             return null; 
