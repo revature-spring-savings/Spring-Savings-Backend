@@ -5,6 +5,8 @@ import com.projectthree.springbanking.transactions.TransactionsEntity;
 import lombok.*;
 
 import javax.persistence.*;
+
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -38,11 +40,14 @@ public class UsersEntity {
 
     // defines owning side of relationship
     // multiple accounts one users
-    @ToString.Exclude
     @OneToMany(fetch = FetchType.LAZY, mappedBy="usersEntity", cascade = CascadeType.ALL)
-    private Set<AccountsEntity> accountsEntity;
+    private Set<AccountsEntity> accountsEntity; 
+
+   
+    
 
     @ToString.Exclude
     @OneToMany(fetch = FetchType.LAZY, mappedBy="usersEntity", cascade = CascadeType.ALL)
     private Set<TransactionsEntity> transactionsEntity;
 }
+

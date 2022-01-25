@@ -1,9 +1,12 @@
 package com.projectthree.springbanking.accounts;
 
 
+import com.projectthree.springbanking.accounts.AccountsEntity;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
+
 import com.projectthree.springbanking.transactions.TransactionsEntity;
 import com.projectthree.springbanking.users.UsersEntity;
 import com.projectthree.springbanking.users.UsersRepository;
@@ -12,18 +15,24 @@ import com.projectthree.springbanking.users.UsersRepository;
 import java.util.Set;
 
 import com.projectthree.springbanking.transactions.TransactionsRepository;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.projectthree.springbanking.accounts.AccountsRepository;
 import com.projectthree.springbanking.exception.SpringBankingAPIException;
 import com.projectthree.springbanking.exception.SpringBankingException;
 
+
+
+
 @Service
 public class AccountsService {
 	
-	@Autowired
-	private AccountsRepository accountsRepository;
 	
+    @Autowired
+    private AccountsRepository accountsRepository;
+    
 	@Autowired
 	    private UsersRepository usersRepository;
 	
@@ -45,23 +54,20 @@ public class AccountsService {
 		return accountsRepository.findByuserID(userID);
 		
 	}
-	
-//	public Optional <AccountsEntity> accountByID(Integer accountID) {
-//		return accountsRepository.findById(accountID);
-//
-//	}
-
-<<<<<<< HEAD
-    @Autowired
-    private TransactionsRepository transactionsRepository;
 
     public AccountsService(AccountsRepository accountsRepository) {
         this.accountsRepository = accountsRepository;
     }
 
-=======
+	public Optional <AccountsEntity> accountByID(Integer accountID) {
+		return accountsRepository.findById(accountID);
+		
+	}
+	public static Scanner keyboard = new Scanner(System.in);
+
+
     //andy method
->>>>>>> team-1
+
     // deposit money into account
     // should take into account what type of account it is
     public AccountsEntity deposit(TransactionsEntity transactionEntity, Integer accountID) {
@@ -170,26 +176,88 @@ public class AccountsService {
         return accountEntity;
     }
 
-    public UsersEntity createAccount(AccountsEntity accountsEntity, Integer userID) {
+    public AccountsEntity createAccount(AccountsEntity accountsEntity, Integer userID) {
         // retrieve existing user from database
         UsersEntity usersEntity = usersRepository.findById(userID).get();
         // create new account
-        AccountsEntity accountEntity = new AccountsEntity();
+//        AccountsEntity accountEntity = new AccountsEntity();
         // set
         Set<AccountsEntity> accountSet = new HashSet<AccountsEntity>();
         // set account balance
-        accountEntity.setAccountBalance(accountsEntity.getAccountBalance());
+//        accountEntity.setUserID(accountsEntity.getUserID());
         // get account type
-        accountEntity.setAccountType(accountsEntity.getAccountType());
+//        accountEntity.setAccountType(accountsEntity.getAccountType());
         // this will set the foreign key relationship
-        accountEntity.setUsersEntity(usersEntity);
-        accountsRepository.save(accountEntity);
-        accountSet.add(accountEntity);
+//        accountEntity.setUsersEntity(usersEntity);
+        accountsRepository.save(accountsEntity);
+        accountSet.add(accountsEntity);
 
-        System.out.println(accountEntity);
+        System.out.println(accountsEntity);
         usersEntity.setAccountsEntity(accountSet);
-		return usersEntity;
 
- 
+        usersRepository.save(usersEntity);
+        return accountsEntity;
+
+		// set values for the new account
+    	
+    	// then add the new account to user
+    	
+    	// then save/ insert
+    	
     }
+    
+
+    
+    private double getDeposit(String account_type) {
+
+
+		double initialDeposit = 0;
+		Boolean valid = false;
+		while(!valid) {
+			
+			System.out.print("Please enter initial deposit: ");
+			
+			try {
+				
+				initialDeposit = Double.parseDouble(keyboard.next());
+				
+			}
+			catch(NumberFormatException e) {
+				
+				System.out.println("Deposit must be a number!");
+			}
+			
+			if(account_type.equalsIgnoreCase("checking")) {
+				if(initialDeposit < 100) {
+					System.out.println("Checking requires $100 minimum to open");
+				} else {
+					valid = true;
+				}
+				
+			} else if(account_type.equalsIgnoreCase("savings")) {
+				if(initialDeposit < 50) {
+					System.out.println("Saving requires $50 minimum to open");
+				} else {
+					valid = true;
+				}
+				
+		}
+		}
+		return initialDeposit;
+	}
+    
+    
 }
+
+//accountEntity.setAccountBalance(accountsEntity.getAccountBalance());
+//accountEntity.setAccountType(accountsEntity.getAccountType());
+//usersEntity.setAccountsEntity(accountEntity);
+//if(account_type.equalsIgnoreCase("checking")) {
+//	System.out.println("works");
+////	accountEntity = new Checking(initialDeposit);
+//} 
+//else if(account_type.equalsIgnoreCase("savings")){
+//	System.out.println("works");
+////	accountEntity = new Savings(initialDeposit);
+//
+//} 
