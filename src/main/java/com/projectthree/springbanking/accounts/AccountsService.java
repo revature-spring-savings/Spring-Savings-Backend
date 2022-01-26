@@ -155,6 +155,7 @@ public class AccountsService {
     
     //colleen method
     public AccountsEntity deposit(TransactionsEntity transactionEntity) {
+    	System.out.println("deposit is reached");
     	System.out.println(transactionEntity.getAccountID());
     	System.out.println(transactionEntity.getUserID());
     	transactionEntity.getAccountID();
