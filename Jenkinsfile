@@ -27,7 +27,7 @@ pipeline {
         }
          stage('DockerRun') {
       steps {
-        sh 'docker run -p 9090:9090 revature-spring-savings/rest-api'
+        sh 'docker run -p 9091:9091 revature-spring-savings/rest-api'
       }
         }
   }
