@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(exclude="usersEntity")
 @Entity
 //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
