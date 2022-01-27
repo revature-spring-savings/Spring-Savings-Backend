@@ -52,6 +52,18 @@ class AccountsEntityTest {
 	}
 	
 	@Test
+	public void testType2() {
+		t.setAccountType("SAVINGS");
+		assertEquals(t.getAccountType(), "SAVINGS");
+	}
+	
+//	@Test
+//	public void testNote() {
+//		t.setTransactionNote("payday");
+//		assertEquals(t.getTransactionNote(), "payday");
+//	}
+	
+	@Test
 	public void testUID() {
 		t.setUserID(7);
 		assertEquals(t.getUserID(), 7);
