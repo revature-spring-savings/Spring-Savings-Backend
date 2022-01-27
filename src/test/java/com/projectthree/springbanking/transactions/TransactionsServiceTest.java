@@ -3,6 +3,7 @@ package com.projectthree.springbanking.transactions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -24,6 +25,7 @@ class TransactionsServiceTest {
 	@Mock
 	TransactionsService ts = org.mockito.Mockito.mock(TransactionsService.class);
 	
+	@DisplayName("this is a display name")
 	@Test
 	public void getByAccountIDMockTest() {
 		when(ts.getAllTransactionsByAccountID(5)).thenReturn(Stream

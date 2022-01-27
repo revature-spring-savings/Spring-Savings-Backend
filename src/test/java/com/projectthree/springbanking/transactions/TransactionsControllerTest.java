@@ -4,37 +4,38 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.apache.tomcat.util.http.parser.MediaType;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.projectthree.springbanking.accounts.AccountsEntity;
-import com.projectthree.springbanking.transactions.TransactionsController;
-import com.projectthree.springbanking.transactions.TransactionsEntity;
-import com.projectthree.springbanking.transactions.TransactionsRepository;
+
 
 @AutoConfigureMockMvc
 class TransactionsControllerTest {
 	
 	@Mock
 	TransactionsController tc = org.mockito.Mockito.mock(TransactionsController.class);
+	
+	TransactionsController tcReal = new TransactionsController();
 	
 	@MockBean
 	private MockMvc mockmvc;
@@ -45,6 +46,7 @@ class TransactionsControllerTest {
 	static List<TransactionsEntity> l1 =  new ArrayList<TransactionsEntity>();
 	static List<TransactionsEntity> l2 =  new ArrayList<TransactionsEntity>();
 	static List<TransactionsEntity> l3 =  new ArrayList<TransactionsEntity>();
+	static ResultActions l4;
 	
 	static TransactionsEntity t = new TransactionsEntity();
 	
@@ -93,12 +95,35 @@ class TransactionsControllerTest {
 	@Test
 	public void fetchAllTransk() throws Exception {
 		when(tc.getAllTransactions()).thenReturn(l3);
-		mockmvc.perform(get("/transactions"))
-			.andExpect(status().isNotFound())
-			.andExpect(content().contentType("application/json;charset=UTF-8"))
-			.andReturn();
+//		mockmvc.perform(get("/transactions"))
+//			.andExpect(status().isOk())
+//			.andExpect(content().contentType("application/json;charset=UTF-8"))
+//			.andReturn();
 	}
 	
+	@Test
+	public void fetchByID() {
+		t.setTransactionID(1);
+		when(tr.findById(1)).thenReturn(Optional.of(t));
+		
+		TransactionsEntity tt= tr.findById(1).get();
+		assertEquals(tt.getTransactionID(), 1);
+	}
+	
+	
+	@Test
+	public void stuff() {
+		when(tr.findAll()).thenReturn(l3);
+	//	verify(tr, times(1).findAll());
+	}
+	
+	@Test
+	void hello() throws Exception {
+		RequestBuilder request = MockMvcRequestBuilders.get("/transactions/");
+//		MvcResult result = mockmvc.perform(request).andReturn();
+////		assertNotNull(result);
+//		when(mockmvc.perform(request)).thenReturn(l4);
+	}
 
 	
 
