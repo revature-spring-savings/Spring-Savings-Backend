@@ -28,12 +28,12 @@ class AccountsRepositoryTest {
 		static void setUpBeforeClass() throws Exception {
 		}
 
-//		@Test
-//		public void getByAccountIDMockTest() {
-//			when(ar.findByAccountID(5)).thenReturn(Stream
-//					.of(new AccountsEntity(), new AccountsEntity()).collect(Collectors.toList()));
-//			assertEquals(2,  ar.findByAccountID(5).size());			
-//		}
+		@Test
+		public void getByAccountIDMockTest() {
+			when(ar.findByAccountID(5)).thenReturn(Stream
+					.of(new AccountsEntity(), new AccountsEntity()).collect(Collectors.toList()));
+			assertEquals(2,  ar.findByAccountID(5).size());			
+		}
 		
 		@Test
 		public void getByUserIDMockTest() {

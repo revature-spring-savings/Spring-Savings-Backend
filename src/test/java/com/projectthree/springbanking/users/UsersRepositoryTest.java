@@ -34,11 +34,10 @@ class UsersRepositoryTest {
 //				.of(new TransactionsEntity(), new TransactionsEntity()).collect(Collectors.toList()));
 //		assertEquals(2,  ar.findAllByAccountID(5).size());			
 //	}
-//	
-//	@Test
-//	public void getByUserIDMockTest() {
-//		when(ar.findByuserID(5)).thenReturn(Stream
-//				.of(new UsersEntity(), new UsersEntity()).collect(Collectors.toList()));
-//		assertEquals(2,  ar.findByuserID(5).size());		
-//	}
+	
+	@Test
+	public void getByUserIDMockTest() {
+		when(ar.findByuserID(5)).thenReturn(new UsersEntity());
+		assertNotNull(ar.findByuserID(5));		
+	}
 }
