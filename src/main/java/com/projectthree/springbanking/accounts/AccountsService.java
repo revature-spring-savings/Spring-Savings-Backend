@@ -160,6 +160,7 @@ public class AccountsService {
     
     //colleen method
     public AccountsEntity deposit(TransactionsEntity transactionEntity) {
+    	System.out.println("deposit is reached");
     	System.out.println(transactionEntity.getAccountID());
     	System.out.println(transactionEntity.getUserID());
     	transactionEntity.getAccountID();
@@ -176,6 +177,7 @@ public class AccountsService {
         return accountEntity;
     }
 
+    //
     public AccountsEntity createAccount(AccountsEntity accountsEntity, Integer userID) {
         // retrieve existing user from database
         UsersEntity usersEntity = usersRepository.findById(userID).get();
@@ -207,8 +209,8 @@ public class AccountsService {
     }
     
 
-    
-    private double getDeposit(String account_type) {
+    //Andy & Jose
+    private double getDeposit(AccountsEntity accountEntity) {
 
 
 		double initialDeposit = 0;
@@ -227,14 +229,14 @@ public class AccountsService {
 				System.out.println("Deposit must be a number!");
 			}
 			
-			if(account_type.equalsIgnoreCase("checking")) {
+			if(accountEntity.getAccountType()=="checking") {
 				if(initialDeposit < 100) {
 					System.out.println("Checking requires $100 minimum to open");
 				} else {
 					valid = true;
 				}
 				
-			} else if(account_type.equalsIgnoreCase("savings")) {
+			} else if(accountEntity.getAccountType()=="savings") {
 				if(initialDeposit < 50) {
 					System.out.println("Saving requires $50 minimum to open");
 				} else {

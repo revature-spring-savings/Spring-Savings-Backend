@@ -67,15 +67,18 @@ public class TransactionsController {
 	public List<AccountsEntity> createNewTransaction(@RequestBody List<TransactionsEntity> l) {
 		List<AccountsEntity> al = new ArrayList<AccountsEntity>();
 		if (l.size() == 1) { //just deposit or withdrawal
-
+				System.out.println("size is 1");
+				System.out.println("type is "+l.get(0).getTransactionType());
 			if (!ar.findById(l.get(0).getAccountID()).isPresent()) {
+				System.out.println("found the error");
 				throw new NoSuchElementException("Could not withdraw from account since account ID does not exist");
 			}
 			
 			if (l.get(0).getTransactionType().equals("WITHDRAW")) {
 				al.add(as.withdraw(l.get(0)));
 			} else {
-				al.add( as.deposit(l.get(0)));
+				System.out.println("i reached else");
+				al.add(as.deposit(l.get(0)));
 			}
 			return al;
 		} else if (l.size() == 2) { //transfer
