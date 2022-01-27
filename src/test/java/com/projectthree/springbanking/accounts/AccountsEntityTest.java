@@ -18,15 +18,15 @@ class AccountsEntityTest {
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		t = new AccountsEntity();
-		u = new AccountsEntity();
+		u = t;
 		v = new AccountsEntity();	
 	}
 
-//	@Test
-//	void equalsTest() {
-//		assertEquals(t, u);
-//		assertEquals(t.hashCode(), u.hashCode());
-//	}
+	@Test
+	void equalsTest() {
+		assertEquals(t, u);
+		assertEquals(t.hashCode(), u.hashCode());
+	}
 	
 	@Test
 	public void testAccountID() {

@@ -1,4 +1,4 @@
-package com.projectthree.springbanking.transcations;
+package com.projectthree.springbanking.transactions;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeAll;

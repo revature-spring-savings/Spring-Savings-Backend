@@ -18,15 +18,15 @@ class UsersEntityTest {
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		t = new UsersEntity();
-		u = new UsersEntity();
+		u = t;
 		v = new UsersEntity();	
 	}
 
-//	@Test
-//	void equalsTest() {
-//		assertEquals(t, u);
-//		assertEquals(t.hashCode(), u.hashCode());
-//	}
+	@Test
+	void equalsTest() {
+		assertEquals(t, u);
+		assertEquals(t.hashCode(), u.hashCode());
+	}
 	
 	@Test
 	public void testUsername() {
