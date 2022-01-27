@@ -46,9 +46,9 @@ public class AccountsController {
 	
 	@GetMapping("/{userID}/all-accounts")
 	public List <AccountsEntity> userAccounts(@PathVariable Integer userID){
-		if (!ar.findByAccountID(userID).isPresent() || userID < 0) {
-			throw new NoSuchElementException("User with id: " + userID + " does not exist!");
-		}
+//		if (!ar.findByAccountID(userID).isPresent() || userID < 0) {
+//			throw new NoSuchElementException("User with id: " + userID + " does not exist!");
+//		}
 				return ar.findByuserID(userID);
 		
 //		userService.findById(userID);

@@ -63,8 +63,9 @@ public class UsersController {
 		return us.findByID(userID);
 	}
 
-	@PutMapping("/update/")
-	public String updateUserInfo(@RequestBody UsersEntity user) {
+	@PutMapping("/update/1")
+	public String updateUserInfo( @RequestBody UsersEntity user) {
+		System.out.println("Controller TEST" + " " + user);
 		return us.updateUser(user);
   }
 }
