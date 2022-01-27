@@ -2,10 +2,9 @@ package com.projectthree.springbanking.accounts;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
+import java.util.HashSet;
+
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.projectthree.springbanking.transactions.TransactionsEntity;
@@ -18,15 +17,15 @@ class AccountsEntityTest {
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		t = new AccountsEntity();
-		u = new AccountsEntity();
+		u = t;
 		v = new AccountsEntity();	
 	}
 
-//	@Test
-//	void equalsTest() {
-//		assertEquals(t, u);
-//		assertEquals(t.hashCode(), u.hashCode());
-//	}
+	@Test
+	void equalsTest() {
+		assertEquals(t, u);
+		assertEquals(t.hashCode(), u.hashCode());
+	}
 	
 	@Test
 	public void testAccountID() {
@@ -34,23 +33,11 @@ class AccountsEntityTest {
 		assertEquals(t.getAccountID(), 5);
 	}
 	
-//	@Test
-//	public void testTransactionEntity() {
-//		t.setTransactionEntity(new TransactionsEntity());
-//		assertEquals(t.getTransactionEntity(), new TransactionsEntity());
-//	}
-	
-//	@Test
-//	public void testAmount() {
-//		t.setAmount(5.78);
-//		assertEquals(t.getAmount(), 5.78);
-//	}
-	
-//	@Test
-//	public void testDate() {
-//		t.setTransactionDate("my birthday");
-//		assertEquals(t.getTransactionDate(), "my birthday");
-//	}
+	@Test
+	public void testTransactionEntity() {
+		t.setTransactionEntity(new HashSet<TransactionsEntity>());
+		assertEquals(t.getTransactionEntity(), new HashSet<TransactionsEntity>());
+	}
 	
 	@Test
 	public void testTID() {
