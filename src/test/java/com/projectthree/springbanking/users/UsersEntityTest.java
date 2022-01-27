@@ -1,11 +1,11 @@
 package com.projectthree.springbanking.users;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
+import java.util.HashSet;
+
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.projectthree.springbanking.accounts.AccountsEntity;
@@ -33,12 +33,18 @@ class UsersEntityTest {
 		t.setUsername("jj@email.com");
 		assertEquals(t.getUsername(), "jj@email.com");
 	}
+
+	@Test
+	public void testTransactionEntity() {
+		t.setTransactionsEntity(new HashSet<TransactionsEntity>());
+		assertEquals(t.getTransactionsEntity(), new HashSet<TransactionsEntity>());
+	}
 	
-//	@Test
-//	public void testAccountsEntity() {
-//		t.setAccountsEntity(new AccountsEntity());
-//		assertEquals(t.getAccountsEntity(), new AccountsEntity());
-//	}
+	@Test
+	public void testAccountsEntity() {
+		t.setAccountsEntity(new HashSet<AccountsEntity>());
+		assertEquals(t.getAccountsEntity(), new HashSet<AccountsEntity>());
+	}
 	
 	@Test
 	public void testFirstName() {
@@ -57,12 +63,6 @@ class UsersEntityTest {
 		t.setLastName("Jones");
 		assertEquals(t.getLastName(), "Jones");
 	}
-	
-//	@Test
-//	public void testTransactionsEntity() {
-//		t.setTransactionsEntity(new TransactionsEntity());
-//		assertEquals(t.getTransactionsEntity(), new TransactionsEntity());
-//	}
 	
 	@Test
 	public void testUserRole() {
@@ -93,12 +93,6 @@ class UsersEntityTest {
 		t.setPhoneNumber("123456789");
 		assertEquals(t.getPhoneNumber(), "123456789");
 	}
-//	
-//	@Test
-//	public void testUser() {
-//		t.setUsersEntity(new UsersEntity());
-//		assertEquals(t.getUsersEntity(), new UsersEntity());
-//	}
 	
 	@Test
 	public void toStringTest() {

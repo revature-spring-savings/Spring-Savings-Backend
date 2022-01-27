@@ -2,10 +2,9 @@ package com.projectthree.springbanking.accounts;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
+import java.util.HashSet;
+
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.projectthree.springbanking.transactions.TransactionsEntity;
@@ -34,23 +33,11 @@ class AccountsEntityTest {
 		assertEquals(t.getAccountID(), 5);
 	}
 	
-//	@Test
-//	public void testTransactionEntity() {
-//		t.setTransactionEntity(new TransactionsEntity());
-//		assertEquals(t.getTransactionEntity(), new TransactionsEntity());
-//	}
-	
-//	@Test
-//	public void testAmount() {
-//		t.setAmount(5.78);
-//		assertEquals(t.getAmount(), 5.78);
-//	}
-	
-//	@Test
-//	public void testDate() {
-//		t.setTransactionDate("my birthday");
-//		assertEquals(t.getTransactionDate(), "my birthday");
-//	}
+	@Test
+	public void testTransactionEntity() {
+		t.setTransactionEntity(new HashSet<TransactionsEntity>());
+		assertEquals(t.getTransactionEntity(), new HashSet<TransactionsEntity>());
+	}
 	
 	@Test
 	public void testTID() {
@@ -63,12 +50,6 @@ class AccountsEntityTest {
 		t.setAccountType("CHECKING");
 		assertEquals(t.getAccountType(), "CHECKING");
 	}
-	
-//	@Test
-//	public void testNote() {
-//		t.setTransactionNote("payday");
-//		assertEquals(t.getTransactionNote(), "payday");
-//	}
 	
 	@Test
 	public void testUID() {
