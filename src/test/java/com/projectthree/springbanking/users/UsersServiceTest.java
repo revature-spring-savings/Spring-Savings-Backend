@@ -26,18 +26,32 @@ class UsersServiceTest {
 	UsersService us = org.mockito.Mockito.mock(UsersService.class);
 	
 	@Test
-	public void getByAccountIDMockTest() {
-		when(us.getAllTransactionsByAccountID(5)).thenReturn(Stream
-				.of(new TransactionsEntity(), new TransactionsEntity()).collect(Collectors.toList()));
-		assertEquals(2,  us.getAllTransactionsByAccountID(5).size());		
+	public void getAllUsersMockTest() {
+		when(us.getAllUsers()).thenReturn(Stream
+				.of(new UsersEntity(), new UsersEntity()).collect(Collectors.toList()));
+		assertEquals(2,  us.getAllUsers().size());		
 	}
 	
 	@Test
-	public void getByAccountIDTest() {
-		int i = us.getAllTransactionsByAccountID(1).size();
-		List<TransactionsEntity> listT = us.getAllTransactionsByAccountID(1);
-		assertEquals(i,  listT.size());		
+	public void getByUserIDMockTest() {
+		when(us.findByID(5)).thenReturn(new UsersEntity());
+		assertNotNull(us.findByID(5));		
 	}
+	
+	@Test
+	public void getByUsernameMockTest() {
+		when(us.getByUsername("jj@email.com")).thenReturn(new UsersEntity());
+		assertNotNull(us.getByUsername("jj@email.com"));		
+	}
+	
+	
+	
+//	@Test
+//	public void getByAccountIDTest() {
+//		int i = us.getAllTransactionsByAccountID(1).size();
+//		List<TransactionsEntity> listT = us.getAllTransactionsByAccountID(1);
+//		assertEquals(i,  listT.size());		
+//	}
 	
 
 }

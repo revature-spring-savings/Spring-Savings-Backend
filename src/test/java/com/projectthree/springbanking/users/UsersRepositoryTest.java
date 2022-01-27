@@ -27,17 +27,22 @@ class UsersRepositoryTest {
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 	}
-
-//	@Test
-//	public void getByAccountIDMockTest() {
-//		when(ar.findAllByAccountID(5)).thenReturn(Stream
-//				.of(new TransactionsEntity(), new TransactionsEntity()).collect(Collectors.toList()));
-//		assertEquals(2,  ar.findAllByAccountID(5).size());			
-//	}
 	
 	@Test
 	public void getByUserIDMockTest() {
 		when(ar.findByuserID(5)).thenReturn(new UsersEntity());
 		assertNotNull(ar.findByuserID(5));		
+	}
+	
+	@Test
+	public void getByUsernameMockTest() {
+		when(ar.findByusername("jj@email.com")).thenReturn(new UsersEntity());
+		assertNotNull(ar.findByusername("jj@email.com"));		
+	}
+	
+	@Test
+	public void getByUseremailMockTest() {
+		when(ar.findByEmail("JJ")).thenReturn(new UsersEntity());
+		assertNotNull(ar.findByEmail("JJ"));		
 	}
 }
