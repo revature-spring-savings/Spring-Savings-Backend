@@ -137,6 +137,13 @@ public class TransactionsController {
 		public List<TransactionsEntity> getAllByUserID(@PathVariable Integer userID) {
 			return tr.findByUserID(userID);
 		}
+		
+		@GetMapping("/accountID/{accountID}")
+		public List<TransactionsEntity> getAllByAccountID(@PathVariable Integer accountID) {
+			System.out.println( tr.findAllByAccountID(accountID));
+			
+			return tr.findAllByAccountID(accountID);
+		}
 
 	@DeleteMapping("/id/{id}")
 	public String deleteOneTransaction(@PathVariable Integer id) {

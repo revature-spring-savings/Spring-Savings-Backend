@@ -85,15 +85,6 @@ class TransactionsControllerTest {
 	}
 	
 	@Test
-	public void fetchAllTrans() {
-		when(tr.findAll()).thenReturn(l3);
-		
-	//	assertEquals(l3, tc.getAllTransactions());
-		
-		
-	}
-	
-	@Test
 	public void fetchAllTransk() throws Exception {
 		when(tc.getAllTransactions()).thenReturn(l3);
 //		mockmvc.perform(get("/transactions"))
@@ -101,8 +92,7 @@ class TransactionsControllerTest {
 //			.andExpect(content().contentType("application/json;charset=UTF-8"))
 //			.andReturn();
 	}
-	
-	@DisplayName("hiiiiii")
+
 	@Test
 	public void fetchByID() {
 		t.setTransactionID(1);
@@ -122,9 +112,6 @@ class TransactionsControllerTest {
 	@Test
 	void hello() throws Exception {
 		RequestBuilder request = MockMvcRequestBuilders.get("/transactions/");
-//		MvcResult result = mockmvc.perform(request).andReturn();
-////		assertNotNull(result);
-//		when(mockmvc.perform(request)).thenReturn(l4);
 	}
 
 	
