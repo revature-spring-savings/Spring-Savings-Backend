@@ -1,4 +1,4 @@
-package com.projectthree.springbanking.transcations;
+package com.projectthree.springbanking.transactions;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,15 +18,15 @@ class TransactionsEntityTest {
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		t = new TransactionsEntity();
-		u = new TransactionsEntity();
+		u = t;
 		v = new TransactionsEntity();	
 	}
 
-//	@Test
-//	void equalsTest() {
-//		assertEquals(t, u);
-//		assertEquals(t.hashCode(), u.hashCode());
-//	}
+	@Test
+	void equalsTest() {
+		assertEquals(t, u);
+		assertEquals(t.hashCode(), u.hashCode());
+	}
 	
 	@Test
 	public void testAccountID() {

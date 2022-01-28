@@ -1,70 +1,45 @@
 package com.projectthree.springbanking.accounts;
 
-import com.projectthree.springbanking.transactions.TransactionsEntity;
-import com.projectthree.springbanking.users.UsersEntity;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.*;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import com.projectthree.springbanking.transactions.TransactionsEntity;
+import com.projectthree.springbanking.transactions.TransactionsService;
+
+@RunWith(MockitoJUnitRunner.class)
 class AccountsServiceTest {
 
-    @Mock
-    private AccountsRepository accountsRepository;
+	@Mock
+	AccountsService as = org.mockito.Mockito.mock(AccountsService.class);
+	
+	AccountsEntity a = new AccountsEntity();
+	
+	@DisplayName("this is a display name")
+	@Test
+	public void getByAccountIDMockTest() {
+		when(as.accountByID(5)).thenReturn(Optional.of(a));
+		assertNotNull(as.accountByID(5));		
+	}
+	
+	@Test
+	public void getByAllAccountIDTest() {
+		int i = as.allAccountsByID(1).size();
+		List<AccountsEntity> listT = as.allAccountsByID(1);
+		assertEquals(i,  listT.size());		
+	}
 
-    @InjectMocks
-    private AccountsService accountsService;
-
-    @Test
-    void allAccounts() {
-        List<AccountsEntity> accounts = new ArrayList();
-
-        accounts.add(new AccountsEntity(1, 1, "checking", 500, new UsersEntity(), new HashSet<TransactionsEntity>()));
-        accounts.add(new AccountsEntity(2, 2, "checking", 500, new UsersEntity(), new HashSet<TransactionsEntity>()));
-        accounts.add(new AccountsEntity(3, 3, "checking", 500, new UsersEntity(), new HashSet<TransactionsEntity>()));
-
-        given(accountsRepository.findAll()).willReturn(accounts);
-
-        List<AccountsEntity> expected = accountsService.allAccounts();
-
-        assertEquals(expected, accounts);
-    }
-
-    @Test
-    void allAccountsByID() {
-        List<AccountsEntity> accounts = new ArrayList();
-
-        accounts.add(new AccountsEntity(1, 1, "checking", 500, new UsersEntity(), new HashSet<TransactionsEntity>()));
-        accounts.add(new AccountsEntity(2, 1, "checking", 500, new UsersEntity(), new HashSet<TransactionsEntity>()));
-        accounts.add(new AccountsEntity(3, 1, "checking", 500, new UsersEntity(), new HashSet<TransactionsEntity>()));
-        Integer userID = 1;
-        given(accountsRepository.findByuserID(1)).willReturn(accounts);
-
-        List<AccountsEntity> expected = accountsService.allAccountsByID(1);
-
-        assertEquals(expected, accounts);
-
-    }
-
-
-
-    @Test
-    void deposit() {
-    }
-
-    @Test
-    void withdraw() {
-    }
-
-    @Test
-    void createAccount() {
-    }
 }

@@ -53,6 +53,11 @@ public class TransactionsController {
 		}
 		return tl;
 	}
+	
+	@GetMapping("/hello")
+	public String hello() {
+		return "hello";
+	}
 
 	@GetMapping("/id/{transactionID}")
 	public TransactionsEntity getOneTransaction(@PathVariable Integer transactionID) {
