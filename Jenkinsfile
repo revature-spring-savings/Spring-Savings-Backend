@@ -5,7 +5,7 @@ pipeline {
     stage('Checkout') {
       steps {
         // Get some code from a GitHub repository
-        git branch: "main", url: 'https://github.com/revature-spring-savings/Spring-Savings-Backend.git'
+        git branch: "development", url: 'https://github.com/revature-spring-savings/Spring-Savings-Backend.git'
       }
     }
         stage('Build') {
