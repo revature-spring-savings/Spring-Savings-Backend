@@ -31,37 +31,31 @@ import org.springframework.web.bind.annotation.*;
 public class AccountsController {
 
 	@Autowired
-  private AccountsService as;
-  
-  @Autowired
-  private AccountsRepository ar;
+	private AccountsService as;
 
-  @Autowired
-  private TransactionsRepository tr;
+	@Autowired
+	private AccountsRepository ar;
+
+	@Autowired
+	private TransactionsRepository tr;
 
 	@Autowired
 	private UsersRepository usersRepository;
 
-	
-	
+
+
 	@GetMapping("/{userID}/all-accounts")
 	public List <AccountsEntity> userAccounts(@PathVariable Integer userID){
-//		if (!ar.findByAccountID(userID).isPresent() || userID < 0) {
-//			throw new NoSuchElementException("User with id: " + userID + " does not exist!");
-//		}
-				return ar.findByuserID(userID);
-		
+		return ar.findByuserID(userID);
+
 //		userService.findById(userID);
-		
+
 	}
-	
+
 	@GetMapping("/{accountID}")
 	public AccountsEntity userAccountByID(@PathVariable Integer accountID){
-		if (!ar.findById(accountID).isPresent() || accountID < 0) {
-			throw new NoSuchElementException("Account with id: " + accountID + " does not exist!");
-		}
-	//	Optional<AccountsEntity> o = as.accountByID(accountID);
-	//	AccountsEntity a = o.get();
+		//	Optional<AccountsEntity> o = as.accountByID(accountID);
+		//	AccountsEntity a = o.get();
 		// return a;
 		return ar.findById(accountID).get();
 	}
@@ -82,6 +76,7 @@ public class AccountsController {
 			throw new NoSuchElementException("Could not deposit into account since account ID: " + acctID + " does not exist");
 		}
 		AccountsEntity ac = ar.findById(acctID).get();
+
 		as.deposit(transactionEntity, acctID);
 		return ac;
 	}
@@ -102,6 +97,6 @@ public class AccountsController {
 		};
 
 		return as.createAccount(accountsEntity, userID);
-		
+
 	}
 }

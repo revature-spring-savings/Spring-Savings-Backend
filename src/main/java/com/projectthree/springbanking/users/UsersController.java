@@ -58,14 +58,14 @@ public class UsersController {
 	}
 	
 	@GetMapping("/id/{id}")
-	public UsersEntity findByID(@PathVariable Integer userID) {
+	public UsersEntity findByID(@PathVariable(value="id") Integer userID) {
 
 		return us.findByID(userID);
 	}
 
-	@PutMapping("/update/1")
+	@PutMapping("/update/{userID}")
 	public String updateUserInfo( @RequestBody UsersEntity user) {
-		System.out.println("Controller TEST" + " " + user);
+		//System.out.println("Controller TEST" + " " + user);
 		return us.updateUser(user);
   }
 }
