@@ -54,7 +54,11 @@ public class AccountsService {
 		return accountsRepository.findByuserID(userID);
 		
 	}
-	
+
+    public AccountsService(AccountsRepository accountsRepository) {
+        this.accountsRepository = accountsRepository;
+    }
+
 	public Optional <AccountsEntity> accountByID(Integer accountID) {
 		return accountsRepository.findById(accountID);
 		
@@ -63,6 +67,7 @@ public class AccountsService {
 
 
     //andy method
+
     // deposit money into account
     // should take into account what type of account it is
     public AccountsEntity deposit(TransactionsEntity transactionEntity, Integer accountID) {
