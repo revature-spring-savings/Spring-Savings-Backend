@@ -1,6 +1,5 @@
 package com.projectthree.springbanking.transactions;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.projectthree.springbanking.accounts.AccountsEntity;
 import com.projectthree.springbanking.users.UsersEntity;

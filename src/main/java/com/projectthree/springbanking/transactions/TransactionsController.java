@@ -112,13 +112,18 @@ public class TransactionsController {
 		//get withdrawals by accountID
 	@PostMapping("/withdraw")
 	public List<TransactionsEntity> getAllWithdrawalTransactions(@RequestBody AccountsEntity a) {
-		System.out.println(a.getAccountID());
+		if (ts.getAllTransactionsByAccountID(a.getAccountID()).size() == 0) {
+			throw new SpringBankingServerException("Could not retrieve accounts or withdraw transactions do not exist..");
+		}
 		return ts.getAllTransactionsByAccountID(a.getAccountID());
 	}
 
 	//get deposits by accountID
 	@PostMapping("/deposit")
 	public List<TransactionsEntity> getAllDepositTransactions(@RequestBody AccountsEntity a) {
+		if (ts.getAllTransactionsByAccountID(a.getAccountID()).size() == 0) {
+			throw new SpringBankingServerException("Could not retrieve accounts or deposit transactions do not exist..");
+		}
 		return ts.getAllTransactionsByAccountID(a.getAccountID());
 	}
 	
