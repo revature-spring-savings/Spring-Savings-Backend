@@ -42,4 +42,5 @@ public class AccountsEntity {
 	@ToString.Exclude
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="accountsEntity", cascade = CascadeType.ALL)
 	private Set<TransactionsEntity> transactionEntity;
+
 }
