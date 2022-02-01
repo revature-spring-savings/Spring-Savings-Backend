@@ -35,7 +35,7 @@ public class UsersService {
     
 	   public UsersEntity findByID(Integer userID) {
 		   UsersEntity user = ur.findByuserID(userID);
-			System.out.println(user);
+		//	System.out.println(user);
 			return user;
 	    }
 	    
@@ -53,8 +53,21 @@ public class UsersService {
     }
 
     //lets the user update their information
+//    public String updateUser(UsersEntity user) {
+//        UsersEntity u = ur.findByusername(user.getUsername());
+//        u.setFirstName(user.getFirstName());
+//        u.setLastName(user.getLastName());
+//        u.setEmail(user.getEmail());
+//        u.setPass(user.getPass());
+//        u.setPhoneNumber(user.getPhoneNumber());
+//        u.setDob(user.getDob());
+//        ur.save(u);
+//        return u.toString();
+//    }
+
     public String updateUser(UsersEntity user) {
-        UsersEntity u = ur.findByusername(user.getUsername());
+        System.out.println("TEST" + " " + user);
+        UsersEntity u = ur.findByuserID(user.getUserID());
         u.setFirstName(user.getFirstName());
         u.setLastName(user.getLastName());
         u.setEmail(user.getEmail());

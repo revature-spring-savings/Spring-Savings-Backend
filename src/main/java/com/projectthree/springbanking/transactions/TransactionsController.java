@@ -53,6 +53,11 @@ public class TransactionsController {
 		}
 		return tl;
 	}
+	
+	@GetMapping("/hello")
+	public String hello() {
+		return "hello";
+	}
 
 	@GetMapping("/id/{transactionID}")
 	public TransactionsEntity getOneTransaction(@PathVariable Integer transactionID) {
@@ -67,15 +72,18 @@ public class TransactionsController {
 	public List<AccountsEntity> createNewTransaction(@RequestBody List<TransactionsEntity> l) {
 		List<AccountsEntity> al = new ArrayList<AccountsEntity>();
 		if (l.size() == 1) { //just deposit or withdrawal
-
+				System.out.println("size is 1");
+				System.out.println("type is "+l.get(0).getTransactionType());
 			if (!ar.findById(l.get(0).getAccountID()).isPresent()) {
+				System.out.println("found the error");
 				throw new NoSuchElementException("Could not withdraw from account since account ID does not exist");
 			}
 			
 			if (l.get(0).getTransactionType().equals("WITHDRAW")) {
 				al.add(as.withdraw(l.get(0)));
 			} else {
-				al.add( as.deposit(l.get(0)));
+				System.out.println("i reached else");
+				al.add(as.deposit(l.get(0)));
 			}
 			return al;
 		} else if (l.size() == 2) { //transfer
@@ -104,13 +112,18 @@ public class TransactionsController {
 		//get withdrawals by accountID
 	@PostMapping("/withdraw")
 	public List<TransactionsEntity> getAllWithdrawalTransactions(@RequestBody AccountsEntity a) {
-		System.out.println(a.getAccountID());
+		if (ts.getAllTransactionsByAccountID(a.getAccountID()).size() == 0) {
+			throw new SpringBankingServerException("Could not retrieve accounts or withdraw transactions do not exist..");
+		}
 		return ts.getAllTransactionsByAccountID(a.getAccountID());
 	}
 
 	//get deposits by accountID
 	@PostMapping("/deposit")
 	public List<TransactionsEntity> getAllDepositTransactions(@RequestBody AccountsEntity a) {
+		if (ts.getAllTransactionsByAccountID(a.getAccountID()).size() == 0) {
+			throw new SpringBankingServerException("Could not retrieve accounts or deposit transactions do not exist..");
+		}
 		return ts.getAllTransactionsByAccountID(a.getAccountID());
 	}
 	
@@ -123,6 +136,13 @@ public class TransactionsController {
 		@GetMapping("/userID/{userID}")
 		public List<TransactionsEntity> getAllByUserID(@PathVariable Integer userID) {
 			return tr.findByUserID(userID);
+		}
+		
+		@GetMapping("/accountID/{accountID}")
+		public List<TransactionsEntity> getAllByAccountID(@PathVariable Integer accountID) {
+			System.out.println( tr.findAllByAccountID(accountID));
+			
+			return tr.findAllByAccountID(accountID);
 		}
 
 	@DeleteMapping("/id/{id}")

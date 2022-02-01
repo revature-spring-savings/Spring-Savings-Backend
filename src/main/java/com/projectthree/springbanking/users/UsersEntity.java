@@ -8,6 +8,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -24,7 +25,6 @@ import javax.persistence.Table;
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(exclude="usersEntity")
 @Table(name="users")
 public class UsersEntity {
@@ -42,7 +42,7 @@ public class UsersEntity {
     @Column(name="username")
     private String username;
     @Column(name="pass")
-    private String pass;
+    private String pass;  
     @Column(name="phone_number")
     private String phoneNumber;
     @Column(name="dob")
