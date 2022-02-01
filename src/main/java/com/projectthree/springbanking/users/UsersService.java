@@ -7,43 +7,43 @@ import java.util.List;
 
 @Service
 public class UsersService {
-  
-	@Autowired
-	private UsersRepository ur;
-	
-	public List<UsersEntity> getAllUsers(){
-		return ur.findAll();
-	}
-	
-	public UsersEntity userLogin(UsersEntity user) {
-		
-		String username = user.getUsername();
-		String pass = user.getPass();
+
+    @Autowired
+    private UsersRepository ur;
+
+    public List<UsersEntity> getAllUsers(){
+        return ur.findAll();
+    }
+
+    public UsersEntity userLogin(UsersEntity user) {
+
+        String username = user.getUsername();
+        String pass = user.getPass();
         UsersEntity loggedInUser = ur.findByusername(username);
         System.out.println(loggedInUser);
         if(loggedInUser.getPass().equals(pass)) {
             return loggedInUser;
         }else {
-            return null; 
+            return null;
         }
-    } 
-	
-	 public UsersEntity register(UsersEntity user) {
-		
-			return ur.save(user);
-	    }
-    
-	   public UsersEntity findByID(Integer userID) {
-		   UsersEntity user = ur.findByuserID(userID);
-			System.out.println(user);
-			return user;
-	    }
-	    
-	    public UsersEntity findByUsername(String username) {
-	    	UsersEntity user = ur.findByusername(username);
-			System.out.println(user);
-			return user;
-	    }
+    }
+
+    public UsersEntity register(UsersEntity user) {
+
+        return ur.save(user);
+    }
+
+    public UsersEntity findByID(Integer userID) {
+        UsersEntity user = ur.findByuserID(userID);
+        System.out.println(user);
+        return user;
+    }
+
+    public UsersEntity findByUsername(String username) {
+        UsersEntity user = ur.findByusername(username);
+        System.out.println(user);
+        return user;
+    }
 
     // Do we need this method? (is it not the same as findByUsername)
     public UsersEntity getByUsername(String username) {

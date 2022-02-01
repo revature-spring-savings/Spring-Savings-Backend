@@ -1,5 +1,6 @@
 package com.projectthree.springbanking.users;
 
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import com.projectthree.springbanking.accounts.AccountsEntity;
@@ -42,7 +43,7 @@ public class UsersEntity {
     @Column(name="username")
     private String username;
     @Column(name="pass")
-    private String pass;  
+    private String pass;
     @Column(name="phone_number")
     private String phoneNumber;
     @Column(name="dob")
@@ -53,10 +54,9 @@ public class UsersEntity {
     // defines owning side of relationship
     // multiple accounts one users
     @OneToMany(fetch = FetchType.LAZY, mappedBy="usersEntity", cascade = CascadeType.ALL)
-    private Set<AccountsEntity> accountsEntity; 
+    private Set<AccountsEntity> accountsEntity;
 
     @ToString.Exclude
     @OneToMany(fetch = FetchType.LAZY, mappedBy="usersEntity", cascade = CascadeType.ALL)
     private Set<TransactionsEntity> transactionsEntity;
 }
-
