@@ -19,9 +19,7 @@ import com.projectthree.springbanking.transactions.TransactionsRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.projectthree.springbanking.accounts.AccountsRepository;
 import com.projectthree.springbanking.exception.SpringBankingAPIException;
-import com.projectthree.springbanking.exception.SpringBankingException;
 
 
 
@@ -140,9 +138,8 @@ public class AccountsService {
 
     //colleen method
     public AccountsEntity withdraw(TransactionsEntity transactionEntity) {
-        AccountsEntity accountEntity = accountsRepository.findById(transactionEntity.getAccountID()).get();
-      
-        if(transactionEntity.getAccountID() > accountEntity.getAccountBalance()) {
+        AccountsEntity accountEntity = accountsRepository.findById(transactionEntity.getAccountID()).get();    
+        if(transactionEntity.getAmount() > accountEntity.getAccountBalance()) {
         	throw new SpringBankingAPIException("Withdrawal amount cannot exceed balance");
         }else {
         accountEntity.setAccountBalance(accountEntity.getAccountBalance()-transactionEntity.getAmount());
@@ -160,11 +157,7 @@ public class AccountsService {
     
     //colleen method
     public AccountsEntity deposit(TransactionsEntity transactionEntity) {
-    	System.out.println("deposit is reached");
-    	System.out.println(transactionEntity.getAccountID());
-    	System.out.println(transactionEntity.getUserID());
     	transactionEntity.getAccountID();
-    	System.out.println(transactionEntity.getAccountID());
         AccountsEntity accountEntity = accountsRepository.findById(transactionEntity.getAccountID()).get();
         Set<TransactionsEntity> transactionSet = accountEntity.getTransactionEntity();
         accountEntity.setAccountBalance(accountEntity.getAccountBalance()+transactionEntity.getAmount());
