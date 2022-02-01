@@ -35,7 +35,7 @@ public class UsersService {
     
 	   public UsersEntity findByID(Integer userID) {
 		   UsersEntity user = ur.findByuserID(userID);
-			System.out.println(user);
+		//	System.out.println(user);
 			return user;
 	    }
 	    
