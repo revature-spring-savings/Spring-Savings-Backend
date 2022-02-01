@@ -15,7 +15,7 @@ import com.projectthree.springbanking.users.UsersRepository;
 import java.util.Set;
 
 import com.projectthree.springbanking.transactions.TransactionsRepository;
-
+import com.projectthree.springbanking.transactions.TransactionsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +38,9 @@ public class AccountsService {
 	
 	@Autowired
     private TransactionsRepository transactionsRepository;
+	
+	@Autowired
+	public TransactionsService ts = new TransactionsService();
 
 	@Autowired
 	public AccountsService(AccountsRepository accountsRepository, UsersRepository usersRepository) {
@@ -176,20 +179,21 @@ public class AccountsService {
     public AccountsEntity createAccount(AccountsEntity accountsEntity, Integer userID) {
         // retrieve existing user from database
         UsersEntity usersEntity = usersRepository.findById(userID).get();
-        // create new account
-//        AccountsEntity accountEntity = new AccountsEntity();
-        // set
-        Set<AccountsEntity> accountSet = new HashSet<AccountsEntity>();
-        // set account balance
-//        accountEntity.setUserID(accountsEntity.getUserID());
-        // get account type
-//        accountEntity.setAccountType(accountsEntity.getAccountType());
-        // this will set the foreign key relationship
-//        accountEntity.setUsersEntity(usersEntity);
-        accountsRepository.save(accountsEntity);
-        accountSet.add(accountsEntity);
 
-        System.out.println(accountsEntity);
+        Set<AccountsEntity> accountSet = new HashSet<AccountsEntity>();
+        Set<TransactionsEntity> transSet = new HashSet<TransactionsEntity>();
+        
+        //create account
+        accountsRepository.save(accountsEntity);
+              
+        TransactionsEntity t = ts.createInitialDeposit(accountsEntity.getAccountID(), userID, accountsEntity.getAccountBalance());
+        
+        accountSet.add(accountsEntity);
+        transSet.add(t);
+        
+        accountsEntity.setTransactionEntity(transSet);
+       
+        usersEntity.setTransactionsEntity(transSet);
         usersEntity.setAccountsEntity(accountSet);
 
         usersRepository.save(usersEntity);
@@ -243,18 +247,4 @@ public class AccountsService {
 		return initialDeposit;
 	}
     
-    
 }
-
-//accountEntity.setAccountBalance(accountsEntity.getAccountBalance());
-//accountEntity.setAccountType(accountsEntity.getAccountType());
-//usersEntity.setAccountsEntity(accountEntity);
-//if(account_type.equalsIgnoreCase("checking")) {
-//	System.out.println("works");
-////	accountEntity = new Checking(initialDeposit);
-//} 
-//else if(account_type.equalsIgnoreCase("savings")){
-//	System.out.println("works");
-////	accountEntity = new Savings(initialDeposit);
-//
-//} 

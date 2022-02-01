@@ -76,7 +76,7 @@ public class TransactionsController {
 				System.out.println("type is "+l.get(0).getTransactionType());
 			if (!ar.findById(l.get(0).getAccountID()).isPresent()) {
 				System.out.println("found the error");
-				throw new NoSuchElementException("Could not withdraw from account since account ID does not exist");
+				throw new NoSuchElementException("Could not perform transaction because account ID does not exist");
 			}
 			
 			if (l.get(0).getTransactionType().equals("WITHDRAW")) {
@@ -88,7 +88,7 @@ public class TransactionsController {
 			return al;
 		} else if (l.size() == 2) { //transfer
 			if (!ar.findById(l.get(0).getAccountID()).isPresent() || !ar.findById(l.get(1).getAccountID()).isPresent()) {
-				throw new NoSuchElementException("Could not withdraw from account since account ID does not exist");
+				throw new NoSuchElementException("Could not transfer to account "+l.get(1).getAccountID() +" because it does not exist");
 			}
 
 			if (l.get(0).getTransactionType().equals("WITHDRAW")) {
