@@ -1,22 +1,13 @@
 package com.projectthree.springbanking.transactions;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.projectthree.springbanking.accounts.AccountsEntity;
-import com.projectthree.springbanking.transactions.TransactionsEntity;
-import com.projectthree.springbanking.transactions.TransactionsRepository;
-
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RunWith(MockitoJUnitRunner.class)
 class TransactionsRepositoryTest {

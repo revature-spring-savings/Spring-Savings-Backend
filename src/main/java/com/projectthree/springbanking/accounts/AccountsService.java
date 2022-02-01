@@ -140,9 +140,8 @@ public class AccountsService {
 
     //colleen method
     public AccountsEntity withdraw(TransactionsEntity transactionEntity) {
-        AccountsEntity accountEntity = accountsRepository.findById(transactionEntity.getAccountID()).get();
-      
-        if(transactionEntity.getAccountID() > accountEntity.getAccountBalance()) {
+        AccountsEntity accountEntity = accountsRepository.findById(transactionEntity.getAccountID()).get();    
+        if(transactionEntity.getAmount() > accountEntity.getAccountBalance()) {
         	throw new SpringBankingAPIException("Withdrawal amount cannot exceed balance");
         }else {
         accountEntity.setAccountBalance(accountEntity.getAccountBalance()-transactionEntity.getAmount());
@@ -160,11 +159,7 @@ public class AccountsService {
     
     //colleen method
     public AccountsEntity deposit(TransactionsEntity transactionEntity) {
-    	System.out.println("deposit is reached");
-    	System.out.println(transactionEntity.getAccountID());
-    	System.out.println(transactionEntity.getUserID());
     	transactionEntity.getAccountID();
-    	System.out.println(transactionEntity.getAccountID());
         AccountsEntity accountEntity = accountsRepository.findById(transactionEntity.getAccountID()).get();
         Set<TransactionsEntity> transactionSet = accountEntity.getTransactionEntity();
         accountEntity.setAccountBalance(accountEntity.getAccountBalance()+transactionEntity.getAmount());
