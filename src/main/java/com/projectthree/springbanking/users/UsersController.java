@@ -59,7 +59,6 @@ public class UsersController {
 	
 	@GetMapping("/id/{id}")
 	public UsersEntity findByID(@PathVariable(value="id") Integer userID) {
-
 		return us.findByID(userID);
 	}
 
