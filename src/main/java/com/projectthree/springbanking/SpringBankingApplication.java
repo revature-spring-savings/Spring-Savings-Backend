@@ -8,6 +8,8 @@ import org.springframework.context.annotation.ComponentScan;
 
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import com.projectthree.springbanking.users.UsersController;
+
 @EnableJpaRepositories
 @SpringBootApplication
 @ComponentScan
@@ -16,6 +18,9 @@ public class SpringBankingApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBankingApplication.class, args);
+		
+		UsersController uc = new UsersController();
+		uc.colleen();
 	}
 
 }

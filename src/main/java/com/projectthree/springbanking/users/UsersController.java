@@ -68,4 +68,8 @@ public class UsersController {
 		//System.out.println("Controller TEST" + " " + user);
 		return us.updateUser(user);
   }
+	
+	public void colleen() {
+		System.out.println(us.findByID(2));
+	}
 }
