@@ -5,7 +5,7 @@ pipeline {
     stage('Checkout') {
       steps {
         // Get some code from a GitHub repository
-        git branch: "main", url: 'https://github.com/revature-spring-savings/Spring-Savings-Backend.git'
+        git branch: "development", url: 'https://github.com/revature-spring-savings/Spring-Savings-Backend.git'
       }
     }
         stage('Build') {
@@ -22,12 +22,12 @@ pipeline {
         }
         stage('DockerBuild') {
       steps {
-        sh 'docker build -t revature-spring-savings/rest-api-main:latest .'
+        sh 'docker build -t revature-spring-savings/rest-api:latest .'
       }
         }
          stage('DockerRun') {
       steps {
-        sh 'docker run -d -p 9090:9090 revature-spring-savings/rest-api-main'
+        sh 'docker run -d -p 9090:9090 revature-spring-savings/rest-api'
       }
         }
   }
